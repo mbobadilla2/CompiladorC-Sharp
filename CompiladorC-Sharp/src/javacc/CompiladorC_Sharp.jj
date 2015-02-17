@@ -203,7 +203,15 @@ TOKEN : {
 //Tokens de puntuacion
 
 TOKEN : {
-	<ParentesisDerecho : ")"> {
+	<LlaveIzquierda : "{"> {
+		System.out.println("Llave Izquierda -> " + image);
+		lista.add("Llave Izquierda -> " + image);
+	}
+	|<LlaveDerecha : "}"> {
+		System.out.println("Llave Derecha -> " + image);
+		lista.add("Llave Derecha -> " + image);
+	}
+	|<ParentesisDerecho : ")"> {
 		System.out.println("Parentesis -> " + image);
 		lista.add("Parentesis -> " + image);
 	}
@@ -214,6 +222,10 @@ TOKEN : {
 	|<CierreSentencia : ";"> {
 		System.out.println("Cierre de sentencia -> " + image);
 		lista.add("Cierre de sentencia -> " + image);
+	}
+	|<Punto : "."> {
+		System.out.println("Punto -> " + image);
+		lista.add("Punto -> " + image);
 	}
 	|<DosPuntos : ":"> {
 		System.out.println("Dos puntos -> " + image);
@@ -333,6 +345,22 @@ TOKEN : {
 	}
 }
 
+//Token comentarios
+TOKEN : {
+	<ComentarioLinea : "//" > {
+		System.out.println("Comentario de una linea -> " + image);
+		lista.add("Comentario de una linea -> " + image);
+	}
+	|<ComentarioInicio : ("/*" | "/**") > {
+		System.out.println("Comentario de parrafo inicio -> " + image);
+		lista.add("Comentario de parrafo inicio -> " + image);
+	}
+	|<ComentarioTermino : "*/" > {
+		System.out.println("Comentario de parrafo termino -> " + image);
+		lista.add("Comentario de parrafo termino -> " + image);
+	}
+}
+
 SKIP : {
 	" "
 	|"\r"
@@ -340,6 +368,72 @@ SKIP : {
 	|"\n"
 }
 
+void cabecera() : {} {
+	<Using><Identificador>(<Punto><Identificador>)*<CierreSentencia>
+}
+
+void cuerpoProyecto() : {} {
+	<Namespace><Identificador><LlaveIzquierda>cuerpoClase()<LlaveDerecha>
+}
+
+void cuerpoClase() : {} {
+	<Clase><Identificador><LlaveIzquierda>sentencias()<LlaveDerecha>
+}
+
+void sentencias() : {} {
+	(estructuraFor()
+	|estructuraIf()
+	|estructuraWhile()
+	|estructuraDoWhile()
+	|declaracionVariable()
+	|<Console><Punto>lectura()<CierreSentencia>
+	|<Consolo><Punto>escritura()<CierreSentencia>)*
+}
+
+void escritura() : {} {
+	<Write><ParentesisIzquierdo>parametros()<ParentesisDerecho>
+	|<WriteLine><ParentesisIzquierdo>parametros()<ParentesisDerecho>
+}
+
+void parametro() : {} {
+	<Identificador>
+	|<Entero>
+	|<Cadena>
+	|<Caracter>
+	|<Flotante>
+	|<Booleano>
+}
+
+void parametros() : {} {
+	parametro()(<Coma>parametro())*
+}
+
+void lectura() : {} {
+	<ReadKey><ParentesisIzquierdo><ParentesisDerecho>
+	|<ReadLine><ParentesisIzquierdo><ParentesisDerecho>
+}
+
+void declaracionVariable() : {} {
+	declaracionVariableBooleana()
+	|declaracionVariableEntera()
+	|declaracionVariableCadena()
+	|declaracionVariableCaracter()
+	|declaracionVariableFlotante()
+	
+}
+
+void declaracionVariableBooleana() : {} {
+	<Booleano><Identificador<IgualA>(<True> | <False> | <Identificador> | <Nulo>)
+}
+
+void declaracionVariableEntera() : {} {
+	<Integer><Identificador
+}
+
+
+
+
+
 void analizadorLexico() : {} {
-	<
+	cabecera()cuerpoProyecto()<EOF>
 }
