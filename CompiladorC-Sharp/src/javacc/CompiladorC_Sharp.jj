@@ -24,3 +24,322 @@ PARSER_END(C_SHARP)
 
 //Tokens principales
 
+
+//Tokens palabras de acceso/reservadas
+TOKEN : {
+	<Namespace : "namespace"> {
+		System.out.println("Palabra reservada -> " + image);
+		lista.add("Palabra reservada -> " + image);
+	}
+	|<Using : "using"> {
+		System.out.println("Importacion de libreria -> " + image);
+		lista.add("Importacion de libreria -> " + image);
+	}
+	|<Clase : "class"> {
+		System.out.println("Declaracion de clase -> " + image);
+		lista.add("Declaracion de clase -> " + image);
+	}
+	|<Privado : "private"> {
+		System.out.println("Acceso Privado -> " + image);
+		lista.add("Acceso Privado -> " + image);
+	}
+	|<Publico : "public"> {
+		System.out.println("Acceso Publico -> " + image);
+		lista.add("Acceso Publico -> " + image);
+	}
+	|<Protegido : "protected"> {
+		System.out.println("Acceso Protegido -> " + image);
+		lista.add("Acceso Protegido -> " + image);
+	}
+	|<Estatico : "static"> {
+		System.out.println("Palabra reservada -> " + image);
+		lista.add("Palabra reservada -> " + image);
+	}
+	|<Funcion : "funcion"> {
+		System.out.println("Palabra reservada -> " + image);
+		lista.add("Palabra reservada -> " + image);
+	}
+	|<Main : "main"> {
+		System.out.println("Nombre funcion principal -> " + image);
+		lista.add("Nombre funcion principal -> " + image);
+	}
+	|<Retorno : "return"> {
+		System.out.println("Palabra reservada -> " + image);
+		lista.add("Pablabra reservada -> " + image);
+	}
+	|<Goto : "goto"> {
+		System.out.println("Palabra reservada -> " + image);
+		lista.add("Pablabra reservada -> " + image);
+	}
+	|<If : "if"> {
+		System.out.println("Condicional -> " + image);
+		lista.add("Condicional -> " + image);
+	}
+	|<Else : "else"> {
+		System.out.println("Condicional -> " + image);
+		lista.add("Condicional -> " + image);
+	}
+	|<For : "for"> {
+		System.out.println("Ciclo -> " + image);
+		lista.add("Ciclo -> " + image);
+	}
+	|<Do : "do"> {
+		System.out.println("Ciclo -> " + image);
+		lista.add("Ciclo -> " + image);
+	}
+	|<While : "while"> {
+		System.out.println("Ciclo -> " + image);
+		lista.add("Ciclo -> " + image);
+	}
+	|<Switch : "switch"> {
+		System.out.println("Condicional -> " + image);
+		lista.add("Condicional -> " + image);
+	}
+	|<Case : "case"> {
+		System.out.println("Palabra reservada -> " + image);
+		lista.add("Palabra reservada -> " + image);
+	}
+	|<Break : "break"> {
+		System.out.println("Palabra reservada -> " + image);
+		lista.add("Palabra reservada -> " + image);
+	}
+	|<Default : "default"> {
+		System.out.println("Palabra reservada -> " + image);
+		lista.add("Palabra reservada -> " + image);
+	}
+	|<Continue : "continue"> {
+		System.out.println("Palabra reservada -> " + image);
+		lista.add("Palabra reservada -> " + image);
+	}
+	|<Void : "void"> {
+		System.out.println("Palabra reservada -> " + image);
+		lista.add("Palabra reservada -> " + image);
+	}
+	
+}
+
+//Palabras reservadas para datos
+TOKEN : {
+	<Integer: "int"> {
+		System.out.println("Tipo de variable -> " + image + "(Entero)");
+		lista.add("Tipo de variable -> " + image + "(Entero)");
+	}
+	|<Float: "float"> {
+		System.out.println("Tipo de variable -> " + image + "(Flotante)");
+		lista.add("Tipo de variable -> " + image + "(Flotante)");
+	}
+	|<String: "string"> {
+		System.out.println("Tipo de variable -> " + image + "(Cadena)");
+		lista.add("Tipo de variable -> " + image + "(Cadena)");
+	}
+	|<Char: "char"> {
+		System.out.println("Tipo de variable -> " + image + "(Caracter)");
+		lista.add("Tipo de variable -> " + image + "(Caracter)");
+	}
+	|<Booleano: "bool"> {
+		System.out.println("Tipo de variable -> " + image + "(Caracter)");
+		lista.add("Tipo de variable -> " + image + "(Caracter)");
+	}
+
+}
+
+//Tipo de datos
+TOKEN : {
+	<Entero : (["0"-"9"])+> {
+		System.out.println("Tipo de dato entero -> " + image);
+		lista.add("Tipo de dato entero -> " + image);
+	}
+	|<String : (["\""](["a"-"z","A"-"Z","0"-"9"," ","!"-"?"])+["\""])> {
+		System.out.println("Tipo de dato String -> " + image);
+		lista.add("Tipo de dato String -> " + image);
+	}
+	|<Caracter : (["'"]["a"-"z","A"-"Z","0"-"9"," "]["'"])> {
+		System.out.println("Tipo de dato caracter -> " + image);
+		lista.add("Tipo de dato caracter -> " + image);
+	}
+	|<Flotante : ((["0"-"9"])+["."](["0"-"9"])+)+> {
+		System.out.println("Tipo de dato flotante -> " + image);
+		lista.add("Tipo de dato flotante -> " + image);
+	}
+	|<True : "true"> {
+		System.out.println("Tipo de dato Booleano -> " + image);
+		lista.add("Tipo de dato Booleano -> " + image);
+	}
+	|<False : "false"> {
+		System.out.println("Tipo de dato Booleano " + image);
+		lista.add("Tipo de dato Booleano -> " + image);
+	}
+	|<Nulo : "null"> {
+		System.out.println("Tipo de dato nulo -> " + image);
+		lista.add("Tipo de dato nulo -> " + image);
+	}
+}
+
+//Token metodos cools basics
+
+TOKEN : {
+	<Console : "Console"> {
+		System.out.println("Refencia a clase -> " + image);
+		lista.add("Refencia a clase -> " + image);
+	}
+	|<WriteLine : "WriteLine"> {
+		System.out.println("Metodo de escritura -> " + image);
+		lista.add("Metodo de escritura -> " + image);
+	}
+	|<Write : "Write"> {
+		System.out.println("Metodo de escritura -> " + image);
+		lista.add("Metodo de escritura -> " + image);
+	}
+	|<ReadLine : "ReadLine"> {
+		System.out.println("Metodo de lectura -> " + image);
+		lista.add("Metodo de lectura -> " + image);
+	}
+	|<ReadKey : "ReadKey"> {
+		System.out.println("Metodo de lectura -> " + image);
+		lista.add("Metodo de lectura -> " + image);
+	}
+}
+
+//Tokens de puntuacion
+
+TOKEN : {
+	<ParentesisDerecho : ")"> {
+		System.out.println("Parentesis -> " + image);
+		lista.add("Parentesis -> " + image);
+	}
+	|<ParentesisIzquierdo : "(" > {
+		System.out.println("Parentesis -> " + image);
+		lista.add("Parentesis -> " + image);
+	}
+	|<CierreSentencia : ";"> {
+		System.out.println("Cierre de sentencia -> " + image);
+		lista.add("Cierre de sentencia -> " + image);
+	}
+	|<DosPuntos : ":"> {
+		System.out.println("Dos puntos -> " + image);
+		lista.add("Dos puntos -> " + image);
+	}
+	|<Coma : ","> {
+		System.out.println("Coma -> " + image);
+		lista.add("Coma -> " + image);
+	}
+}
+
+//Tokens para operaciones aritmeticas
+TOKEN : {
+	<Suma : "+"> {
+		System.out.println("Operador aritmetico suma -> " + image);
+		lista.add("Operador aritmetico suma -> " + image);
+	}
+	|<Resta : "-"> {
+		System.out.println("Operador aritmetico resta -> " + image);
+		lista.add("Operador aritmetico -> resta " + image);
+	}
+	|<Multiplicacion : "*"> {
+		System.out.println("Operador aritmetico multiplicacion -> " + image);
+		lista.add("Operador aritmetico multiplicacion -> " + image);
+	}
+	|<Division : "/"> {
+		System.out.println("Operador aritmetico division -> " + image);
+		lista.add("Operador aritmetico division -> " + image);
+	}
+	|<Modulo : "%"> {
+		System.out.println("Operador aritmetico modulo -> " + image);
+		lista.add("Operador aritmetico modulo -> " + image);
+	}
+}
+
+//Toneks para asignaciones
+TOKEN : {
+	<IgualA : "="> {
+		System.out.println("Asignacion -> " + image);
+		lista.add("Asignacion -> " + image);
+	}
+	|<SumaIgualA : "+="> {
+		System.out.println("Asignacion -> " + image);
+		lista.add("Asignacion -> " + image);
+	}
+	|<RestaIgualA : "-="> {
+		System.out.println("Asignacion -> " + image);
+		lista.add("Asignacion -> " + image);
+	}
+	|<MultiplicacionIgualA : "*="> {
+		System.out.println("Asignacion -> " + image);
+		lista.add("Asignacion -> " + image);
+	}
+	|<DivisionIgualA : "/="> {
+		System.out.println("Asignacion -> " + image);
+		lista.add("Asignacion -> " + image);
+	}
+	|<ModuloIgualA : "%="> {
+		System.out.println("Asignacion -> " + image);
+		lista.add("Asignacion -> " + image);
+	}
+	|<Incremento : "++"> {
+		System.out.println("Asignacion -> " + image);
+		lista.add("Asignacion -> " + image);
+	}
+	|<Decremento : "--"> {
+		System.out.println("Asignacion -> " + image);
+		lista.add("Asignacion -> " + image);
+	}
+}
+
+//Tokens operadores relacionales
+TOKEN : {
+	<IgualQue : "=="> {
+		System.out.println("Operador Relacional -> " + image);
+		lista.add("Operador Relacional -> " + image);
+	}
+	|<MenorQue : "<"> {
+		System.out.println("Operador Relacional -> " + image);
+		lista.add("Operador Relacional -> " + image);
+	}
+	|<MayorQue : ">"> {
+		System.out.println("Operador Relacional -> " + image);
+		lista.add("Operador Relacional -> " + image);
+	}
+	|<MenorIgualQue : "<="> {
+		System.out.println("Operador Relacional -> " + image);
+		lista.add("Operador Relacional -> " + image);
+	}
+	|<MayorIgualQue : ">="> {
+		System.out.println("Operador Relacional -> " + image);
+		lista.add("Operador Relacional -> " + image);
+	}
+	|<DiferenteQue : "!="> {
+		System.out.println("Operador Relacional -> " + image);
+		lista.add("Operador Relacional -> " + image);
+	}
+}
+
+//Tokens operadores logicos
+TOKEN : {
+	<And : "&&"> {
+		System.out.println("Operador Logico -> " + image);
+		lista.add("Operador Logico -> " + image);
+	}
+	|<Or : "||"> {
+		System.out.println("Operador Logico -> " + image);
+		lista.add("Operador Logico -> " + image);
+	}
+}
+
+//Token para identificadores
+TOKEN : {
+	<Identificador : ["a"-"z", "A"-"Z"](["a"-"z", "A"-"Z", "0"-"9", "_"])*> {
+		System.out.println("Identificador -> " + image);
+		lista.add("Identificador -> " + image);
+	}
+}
+
+SKIP : {
+	" "
+	|"\r"
+	|"\t"
+	|"\n"
+}
+
+void analizadorLexico() : {} {
+	<
+}
