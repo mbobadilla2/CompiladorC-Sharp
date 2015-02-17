@@ -1,0 +1,26 @@
+options{
+	STATIC = false;
+}
+PARSER_BEGING(C_SHARP)
+	public class C_SHARP{
+		static ArrayList<String> lista = new ArrayList();
+
+		public static void main(String[] args) throws ParseException {
+			try{
+				C_SHARP csharp = new C_SHARP(System.in);
+				csharp.analizadorLexico();
+			} catch(ParseException e){
+				System.out.println(e.getMessage());
+			}
+		}
+
+		public ArrayList<String> getLista(){
+			return lista;
+		}
+	}
+PARSER_END(C_SHARP)
+
+//Tokens
+
+//Tokens principales
+
