@@ -4,6 +4,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import thangs.BoraColors;
 
 /**
  * @author Fernando2
@@ -15,10 +16,12 @@ public class TabsPanel extends JTabbedPane {
     
     public TabsPanel(JFrame frame){
         this.frame = frame;
+        this.setBackground(BoraColors.DARK_GRAY);
         this.setBorder(BorderFactory.createEmptyBorder());
     }
     
     public void newTab(){
-        this.add(new NewTabPanel(frame, new JPanel(), new JPanel()), "Untitled");
+        NewTabPanel tab = new NewTabPanel(frame, new JPanel(), new JPanel());
+        this.add(tab, "Untitled");
     }
 }

@@ -1,5 +1,6 @@
 package frames;
 
+import java.awt.Insets;
 import java.awt.Window;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -7,8 +8,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import listeners.MenuListener;
 import menu.MainMenu;
-import panels.NewTabPanel;
 import panels.TabsPanel;
+import thangs.BoraColors;
 
 /**
  * @author Fernando2
@@ -18,7 +19,7 @@ import panels.TabsPanel;
 public class Main {
 
     public static void main(String[] args) {
-        //setLookAndFeel();
+        setLookAndFeel();
         drawWindow();
     }
 
@@ -28,14 +29,11 @@ public class Main {
         frame.setSize(900,600); 
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
+        frame.setBackground(BoraColors.DARK_GRAY);
         //Se va a controlar con el windowListener...
         
         // El panel que controla las pestañas...
         TabsPanel tabs = new TabsPanel(frame);
-        tabs.newTab();
-        tabs.newTab();
-        tabs.newTab();
-        tabs.newTab();
         tabs.newTab();
         
 //        PanelListener pListener = new PanelListener(panel);
@@ -48,7 +46,7 @@ public class Main {
         
         // La barra de menú...
         MainMenu menu = new MainMenu();
-        MenuListener mListener = new MenuListener(menu);
+        MenuListener mListener = new MenuListener(menu, tabs);
         menu.addEvents(mListener);
         frame.setJMenuBar(menu);
         
@@ -75,5 +73,6 @@ public class Main {
                 InstantiationException | IllegalAccessException e){
             // No hagas nada...
         }    
+        
     }
 }
