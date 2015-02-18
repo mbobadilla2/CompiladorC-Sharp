@@ -1,13 +1,13 @@
 options{
 	STATIC = false;
 }
-PARSER_BEGING(C_SHARP)
-	public class C_SHARP{
+PARSER_BEGIN(CompiladorC_Sharp)
+	public class CompiladorC_Sharp{
 		static ArrayList<String> lista = new ArrayList();
 
 		public static void main(String[] args) throws ParseException {
 			try{
-				C_SHARP csharp = new C_SHARP(System.in);
+				CompiladorC_Sharp csharp = new CompiladorC_Sharp(System.in);
 				csharp.analizadorLexico();
 			} catch(ParseException e){
 				System.out.println(e.getMessage());
@@ -18,7 +18,7 @@ PARSER_BEGING(C_SHARP)
 			return lista;
 		}
 	}
-PARSER_END(C_SHARP)
+PARSER_END(CompiladorC_Sharp)
 
 //Tokens
 
@@ -50,10 +50,6 @@ TOKEN : {
 	|<Protegido : "protected"> {
 		System.out.println("Acceso Protegido -> " + image);
 		lista.add("Acceso Protegido -> " + image);
-	}
-	|<Estatico : "static"> {
-		System.out.println("Palabra reservada -> " + image);
-		lista.add("Palabra reservada -> " + image);
 	}
 	|<Funcion : "funcion"> {
 		System.out.println("Palabra reservada -> " + image);
@@ -115,6 +111,10 @@ TOKEN : {
 		System.out.println("Palabra reservada -> " + image);
 		lista.add("Palabra reservada -> " + image);
 	}
+	|<Static : "static"> {
+		System.out.println("Palabra reservada -> " + image);
+		lista.add("Palabra reservada -> " + image);
+	}
 	
 }
 
@@ -149,7 +149,7 @@ TOKEN : {
 		System.out.println("Tipo de dato entero -> " + image);
 		lista.add("Tipo de dato entero -> " + image);
 	}
-	|<String : (["\""](["a"-"z","A"-"Z","0"-"9"," ","!"-"?"])+["\""])> {
+	|<Cadena : (["\""](["a"-"z","A"-"Z","0"-"9"," ","!"-"?"])+["\""])> {
 		System.out.println("Tipo de dato String -> " + image);
 		lista.add("Tipo de dato String -> " + image);
 	}
@@ -234,6 +234,14 @@ TOKEN : {
 	|<Coma : ","> {
 		System.out.println("Coma -> " + image);
 		lista.add("Coma -> " + image);
+	}
+	|<ArregloIzquierdo : "["> {
+		System.out.println("ArregloIzquierdo -> " + image);
+		lista.add("ArregloIzquierdo -> " + image);
+	}
+	|<ArregloDerecho : "]"> {
+		System.out.println("ArregloDerecho -> " + image);
+		lista.add("ArregloDerecho -> " + image);
 	}
 }
 
@@ -368,6 +376,7 @@ SKIP : {
 	|"\n"
 }
 
+
 void cabecera() : {} {
 	<Using><Identificador>(<Punto><Identificador>)*<CierreSentencia>
 }
@@ -377,7 +386,11 @@ void cuerpoProyecto() : {} {
 }
 
 void cuerpoClase() : {} {
-	<Clase><Identificador><LlaveIzquierda>sentencias()<LlaveDerecha>
+	<Clase><Identificador><LlaveIzquierda>metodoMain()<LlaveDerecha>
+}
+
+void metodoMain() : {} {
+	<Static><Void><Main><ParentesisIzquierdo><String><ArregloIzquierdo><ArregloDerecho><Identificador><ParentesisDerecho><LlaveIzquierda>sentencias()<LlaveDerecha>
 }
 
 void sentencias() : {} {
@@ -387,7 +400,7 @@ void sentencias() : {} {
 	|estructuraDoWhile()
 	|declaracionVariable()
 	|<Console><Punto>lectura()<CierreSentencia>
-	|<Consolo><Punto>escritura()<CierreSentencia>)*
+	|<Console><Punto>escritura()<CierreSentencia>)*
 }
 
 void escritura() : {} {
@@ -423,7 +436,7 @@ void declaracionVariable() : {} {
 }
 
 void declaracionVariableBooleana() : {} {
-	<Booleano><Identificador(<IgualA>(<True> | <False> | <Identificador> | <Nulo>))?
+	<Booleano><Identificador>(<IgualA>(<True> | <False> | <Identificador> | <Nulo>))?
 }
 
 void declaracionVariableEntera() : {} {
@@ -434,8 +447,16 @@ void declaracionVariableFlotante() : {} {
 	<Float><Identificador>(<IgualA>(<Identificador> | <Flotante> | operacion()))?
 }
 
+void declaracionVariableCadena() : {} {
+	<String><Identificador>(<IgualA>(<Identificador> | <Cadena>))?
+}
+
+void declaracionVariableCaracter() : {} {
+	<Char><Identificador>(<IgualA>(<Identificador> | <Caracter>))?
+}
+
 void operacion() : {} {
-	(operadoresAritmeticos()(tipoDato()|<Identificador>))+
+	(operadoresAritmeticos()(parametros()|<Identificador>))+
 }
 
 void operadoresAritmeticos () : {} {
@@ -451,7 +472,7 @@ void estructuraSwitch () : {} {
 }
 
 void casos () : {} {
-	(<Case>tipoDato()<DosPuntos>sentencias()<Break><CierreSentencia>)+
+	(<Case>parametros()<DosPuntos>sentencias()<Break><CierreSentencia>)+
 }
 
 void predeterminado() : {} {
@@ -468,6 +489,10 @@ void estructuraElse() : {}{
 
 void condicionesAdicionales() : {} {
 	(tokensOperadoresLogicos()<Identificador>condiciones())+
+}
+
+void tokensOperadoresLogicos() : {} {
+	<And> | <Or>
 }
 
 void condiciones() : {} {
