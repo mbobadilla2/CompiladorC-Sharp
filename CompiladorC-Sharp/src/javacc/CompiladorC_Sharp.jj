@@ -423,16 +423,108 @@ void declaracionVariable() : {} {
 }
 
 void declaracionVariableBooleana() : {} {
-	<Booleano><Identificador<IgualA>(<True> | <False> | <Identificador> | <Nulo>)
+	<Booleano><Identificador(<IgualA>(<True> | <False> | <Identificador> | <Nulo>))?
 }
 
 void declaracionVariableEntera() : {} {
-	<Integer><Identificador
+	<Integer><Identificador>(<IgualA>(<Identificador> | <Entero> | operacion()))?
+}
+
+void declaracionVariableFlotante() : {} {
+	<Float><Identificador>(<IgualA>(<Identificador> | <Flotante> | operacion()))?
+}
+
+void operacion() : {} {
+	(operadoresAritmeticos()(tipoDato()|<Identificador>))+
+}
+
+void operadoresAritmeticos () : {} {
+	<Suma>
+	|<Resta>
+	|<Multiplicacion>
+	|<Division>
+	|<Modulo>
+}
+
+void estructuraSwitch () : {} {
+	<Switch><ParentesisIzquierdo><Identificador><ParentesisDerecho><LlaveIzquierda>casos()(predeterminado())?<LlaveDerecha>
+}
+
+void casos () : {} {
+	(<Case>tipoDato()<DosPuntos>sentencias()<Break><CierreSentencia>)+
+}
+
+void predeterminado() : {} {
+	<Default><DosPuntos>sentencias()(<Break><CierreSentencia>)?
+}
+
+void estructuraIf () : {} {
+	<If><ParentesisIzquierdo><Identificador>condiciones()(condicionesAdicionales())?<ParentesisDerecho><LlaveIzquierda>sentencias()(estructuraElse())?<LlaveDerecha>
+}
+
+void estructuraElse() : {}{
+	<Else>sentencias()
+}
+
+void condicionesAdicionales() : {} {
+	(tokensOperadoresLogicos()<Identificador>condiciones())+
+}
+
+void condiciones() : {} {
+	condicionBooleana()|condicionAritmetica()
+}
+
+void condicionBooleana() : {} {
+	(diferenteIgual())(<True>|<False>)
+}
+
+void condicionAritmetica () : {} {
+	comparacionesIf()(<Identificador>|<Entero>)
+}
+
+void comparacionesIf () : {} {
+	comparacionesFor()
+}
+
+void diferenteIgual() : {} {
+	(<IgualQue>|<DiferenteQue>)
+}
+
+void estructuraWhile () : {}{
+	<While><ParentesisIzquierdo><Identificador>(condicionBooleana()|condicionAritmetica())(condicionesAdicionales())?<ParentesisDerecho><LlaveIzquierda>sentencias()<LlaveDerecha>
+}
+
+void estructuraDoWhile() : {}{
+	<Do><LlaveIzquierda>sentencias()<LlaveDerecha><While><ParentesisIzquierdo><Identificador>(condicionBooleana()|condicionAritmetica())(condicionesAdicionales())?<ParentesisDerecho>
 }
 
 
+void estructuraFor () : {} {
+	<For><ParentesisIzquierdo>(<Integer> | <Float>)?<Identificador><IgualA><Entero><CierreSentencia>
+	<Identificador>comparacionesFor()<Entero><CierreSentencia><Identificador>asignacionesFor()<ParentesisDerecho>
+	<LlaveIzquierda>sentencias()<LlaveDerecha>
+}
 
+void comparacionesFor () : {} {
+	<MenorQue>
+	|<MenorIgualQue>
+	|<MayorQue>
+	|<MayorIgualQue>
+}
 
+void asignacionesFor () : {} {
+	asignacionVariablesFor()
+	|<Incremento>
+	|<Decremento>
+}
+
+void asignacionVariablesFor () : {} {
+	<SumaIgualA>(<Identificador>|<Entero>)
+	|<RestaIgualA>(<Identificador>|<Entero>)
+	|<MultiplicacionIgualA>(<Identificador>|<Entero>)
+	|<DivisionIgualA>(<Identificador>|<Entero>)
+	|<ModuloIgualA>(<Identificador>|<Entero>)
+}
 
 void analizadorLexico() : {} {
 	cabecera()cuerpoProyecto()<EOF>
