@@ -20,7 +20,7 @@ import panels.NewTabPanel;
 public class CodeListener extends KeyAdapter{
     private final NewTabPanel tab;
     private final JTextPane code;
-    
+            
     public CodeListener(NewTabPanel tab){
         this.tab = tab;
         this.code = tab.getCode();

@@ -1,0 +1,12 @@
+using System;
+
+namespace MiRey{
+	
+	class Program{
+
+		static void Main(string[] args){
+
+			Console.WriteLine("Que milagro, mirrey");
+		}
+	}
+}

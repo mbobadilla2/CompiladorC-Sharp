@@ -14,6 +14,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import listeners.CodeCaretListener;
 import listeners.CodeListener;
+import listeners.MenuListener;
 import thangs.BoraColors;
 import thangs.BoraFonts;
 
@@ -33,6 +34,7 @@ public class NewTabPanel extends JSplitPane{
     protected JFrame frame;
     protected JPanel top, bot;
     private JLabel terminalLabel;
+    public static JTextPane auxCode;
 
     public NewTabPanel(JFrame frame, JPanel top, JPanel bot){
         this.frame = frame;
@@ -40,6 +42,8 @@ public class NewTabPanel extends JSplitPane{
         this.bot = bot;
         setComponents();
         addEvents();
+        auxCode = code;
+        MenuListener.addTab(this);
     }
     
     public final void setComponents(){

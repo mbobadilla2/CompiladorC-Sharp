@@ -55,7 +55,7 @@ TOKEN : {
 		System.out.println("Palabra reservada -> " + image);
 		lista.add("Palabra reservada -> " + image);
 	}
-	|<Main : "main"> {
+	|<Main : "Main"> {
 		System.out.println("Nombre funcion principal -> " + image);
 		lista.add("Nombre funcion principal -> " + image);
 	}

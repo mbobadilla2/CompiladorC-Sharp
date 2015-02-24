@@ -1,0 +1,11 @@
+using System;
+
+namespace HolaMundo{
+
+	class MainClass{
+
+		hgstatic void Main(string[] args){
+
+		}
+	}
+}

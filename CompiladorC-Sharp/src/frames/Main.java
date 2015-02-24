@@ -32,8 +32,15 @@ public class Main {
         frame.setBackground(BoraColors.DARK_GRAY);
         //Se va a controlar con el windowListener...
         
+        // La barra de menú...
+        MainMenu menu = new MainMenu();
+        MenuListener mListener = new MenuListener(menu);
+        menu.addEvents(mListener);
+        frame.setJMenuBar(menu);
+        
         // El panel que controla las pestañas...
         TabsPanel tabs = new TabsPanel(frame);
+        mListener.setTabs(tabs);
         tabs.newTab();
         
 //        PanelListener pListener = new PanelListener(panel);
@@ -44,11 +51,6 @@ public class Main {
 //        frame.addWindowListener(fListener);
 //        
         
-        // La barra de menú...
-        MainMenu menu = new MainMenu();
-        MenuListener mListener = new MenuListener(menu, tabs);
-        menu.addEvents(mListener);
-        frame.setJMenuBar(menu);
         
         // Agregamos a la ventana...
         frame.getContentPane().add(tabs);
