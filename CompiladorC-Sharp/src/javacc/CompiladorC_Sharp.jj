@@ -155,7 +155,7 @@ TOKEN : {
 		System.out.println("Tipo de dato entero -> " + image);
 		lista.add("Tipo de dato entero -> " + image);
 	}
-	|<Cadena : (["\""](["a"-"z","A"-"Z","0"-"9"," ","!"-"?"])+["\""])> {
+	|<Cadena : (["\""](["a"-"z","A"-"Z","0"-"9"," ","!"-"?"])*["\""])> {
 		System.out.println("Tipo de dato String -> " + image);
 		lista.add("Tipo de dato String -> " + image);
 	}
@@ -555,28 +555,106 @@ void sentencias() : {} {
 
 void escritura() : {} {
 
-	
+	(try{
+		<Write>
+	}catch(ParserException e){
+		errores.add("Error, metodo mal escrito o inexistente en la línea " + linea);
+	})
+	(try{
+		<ParentesisIzquierdo>
+	}catch(ParserException e){
+		errores.add("Error, falta un Parentesis de apertura en la línea " + linea);
+	})
+	parametro()
+	(try{
+		<ParentesisDerecho>
+	}catch(ParserException e){
+		errores.add("Error, falta un Parentesis de cierre en la línea " + linea);
+	})
 
-	<Write><ParentesisIzquierdo>parametro()<ParentesisDerecho>
-	|<WriteLine><ParentesisIzquierdo>parametro()<ParentesisDerecho>
+	|
+
+	(try{
+		<WriteLine>
+	}catch(ParserException e){
+		errores.add("Error, metodo mal escrito o inexistente en la línea " + linea);
+	})
+	(try{
+		<ParentesisIzquierdo>
+	}catch(ParserException e){
+		errores.add("Error, falta un Parentesis de apertura en la línea " + linea);
+	})
+	parametro()
+	(try{
+		<ParentesisDerecho>
+	}catch(ParserException e){
+		errores.add("Error, falta un Parentesis de cierre en la línea " + linea);
+	})
+
+	
 }
 
 void parametro() : {} {
-	<Identificador>
-	|<Entero>
-	|<Cadena>
-	|<Caracter>
-	|<Flotante>
-	|<Booleano>
-}
+
+	(try{
+		<Identificador>
+		|<Entero>
+		|<Cadena>
+		|<Caracter>
+		|<Flotante>
+		|<Booleano>
+
+	}catch(ParserException e){
+		errores.add("Error, faltan parametros en la línea " + linea);
+	})
+	
+	}
 
 void parametros() : {} {
-	parametro()(<Coma>parametro())*
+	parametro()((try{
+					<Coma>
+				}catch(ParserException e){
+					errores.add("Error, falta una coma para agregar mas parametros en la línea " + linea);
+				}) parametro())*
 }
 
 void lectura() : {} {
-	<ReadKey><ParentesisIzquierdo><ParentesisDerecho>
-	|<ReadLine><ParentesisIzquierdo><ParentesisDerecho>
+
+	(try{
+		<Read>
+	}catch(ParserException e){
+		errores.add("Error, metodo mal escrito o inexistente en la línea " + linea);
+	})
+	(try{
+		<ParentesisIzquierdo>
+	}catch(ParserException e){
+		errores.add("Error, falta un Parentesis de apertura en la línea " + linea);
+	})
+	(try{
+		<ParentesisDerecho>
+	}catch(ParserException e){
+		errores.add("Error, falta un Parentesis de cierre en la línea " + linea);
+	})
+
+	|
+
+	(try{
+		<ReadLine>
+	}catch(ParserException e){
+		errores.add("Error, metodo mal escrito o inexistente en la línea " + linea);
+	})
+	(try{
+		<ParentesisIzquierdo>
+	}catch(ParserException e){
+		errores.add("Error, falta un Parentesis de apertura en la línea " + linea);
+	})
+	(try{
+		<ParentesisDerecho>
+	}catch(ParserException e){
+		errores.add("Error, falta un Parentesis de cierre en la línea " + linea);
+	})
+
+	
 }
 
 void declaracionVariable() : {} {
@@ -613,14 +691,28 @@ void operacion() : {} {
 }
 
 void operadoresAritmeticos () : {} {
-	<Suma>
-	|<Resta>
-	|<Multiplicacion>
-	|<Division>
-	|<Modulo>
+
+	(try{
+		<Suma>
+		|<Resta>
+		|<Multiplicacion>
+		|<Division>
+		|<Modulo>
+
+	}catch(ParserException e){
+		errores.add("Error, falta un operador aritmetico en la línea " + linea);
+	})
+
 }
 
 void estructuraSwitch () : {} {
+
+	(try{
+		<Switch>
+	}catch(ParserException e){
+		errores.add("Error, falta un identificador en la línea " + linea);
+	})
+
 	<Switch><ParentesisIzquierdo><Identificador><ParentesisDerecho><LlaveIzquierda>casos()(predeterminado())?<LlaveDerecha>
 }
 
@@ -684,16 +776,33 @@ void estructuraFor () : {} {
 }
 
 void comparacionesFor () : {} {
-	<MenorQue>
-	|<MenorIgualQue>
-	|<MayorQue>
-	|<MayorIgualQue>
+	(try{
+		<MenorQue>
+		|<MenorIgualQue>
+		|<MayorQue>
+		|<MayorIgualQue>
+	}catch(ParserException e){
+		errores.add("Error, falta un simbolo de comparacion en la línea " + linea);
+	})
+
+	
 }
 
 void asignacionesFor () : {} {
 	asignacionVariablesFor()
-	|<Incremento>
-	|<Decremento>
+	|
+	(try{
+		<Incremento>
+	}catch(ParserException e){
+		errores.add("Error, falta incremento en la línea " + linea);
+	})
+	|
+	(try{
+		<Decremento>
+	}catch(ParserException e){
+		errores.add("Error, falta decremento en la línea " + linea);
+	})
+	
 }
 
 void asignacionVariablesFor () : {} {
