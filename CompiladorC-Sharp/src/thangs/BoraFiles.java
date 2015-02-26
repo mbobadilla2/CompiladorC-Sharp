@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import javacc.CompiladorC_Sharp;
+import javacc.ParseException;
 import javax.swing.JTextPane;
 import listeners.MenuListener;
 
@@ -22,7 +23,7 @@ import listeners.MenuListener;
 public class BoraFiles {
     public static String TEMP_FILE = "src/thangs/BoraTemp.txt";
     
-    public static void readTemp(){
+    public static void readTemp() throws ParseException, FileNotFoundException{
         System.out.println("COMPILA");
         CompiladorC_Sharp.Compilar(MenuListener.openTabs.get(MenuListener.tabs.getSelectedIndex()));
     }

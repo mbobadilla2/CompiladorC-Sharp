@@ -42,10 +42,10 @@ public class CodeListener extends KeyAdapter{
             e.consume();
         }
         
-        try {
-            System.out.println("Posición: " + code.getDocument().getText(code.getCaretPosition(),1).charAt(0));
-        } catch (BadLocationException ex) {
-            Logger.getLogger(CodeListener.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            System.out.println("Posición: " + code.getDocument().getText(code.getCaretPosition(),1).charAt(0));
+//        } catch (BadLocationException ex) {
+//            Logger.getLogger(CodeListener.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 }

@@ -2,11 +2,151 @@ using System;
 
 namespace MiRey{
 	
-	class Program{
+    class Program{
 
-		static void Main(string[] args){
+        static void Main(string[] args){
 
-			Console.WriteLine("Que milagro, mirrey");
-		}
-	}
+            Console.WriteLine("Que milagro, mirrey");
+
+            int a = 5;
+            int b = 4;
+            string unaCadena  = "soy una cadena";
+            bool cierto = true;
+            bool falso = false;
+            int c = -10;
+            float d = -10.21;
+            char caracter = 'i';
+
+            switch(a){
+
+                case 1:
+                    Console.WriteLine("A vale 1");
+                    break;
+
+                case 2:
+                    int g = 2;
+                    break;
+
+                case 3:
+                    float h = 2.32;
+                    break;
+
+                default:
+                    Console.WriteLine("Case de default");
+            }
+
+
+            if(a > b){
+                Console.Write("A es mayor que B");            
+            }
+
+            for(int i = 0; i < 100; i++){
+                    
+                while(a <= 100){
+
+                    string cadena = "i";
+
+                    string otraCadena = ReadLine();
+                }
+
+            }
+
+Console.WriteLine("Que milagro, mirrey");
+
+            int a = 5;
+            int b = 4;
+            string unaCadena  = "soy una cadena";
+            bool cierto = true;
+            bool falso = false;
+            int c = -10;
+            float d = -10.21;
+            char caracter = 'i';
+
+            switch(a){
+
+                case 1:
+                    Console.WriteLine("A vale 1");
+                    break;
+
+                case 2:
+                    int g = 2;
+                    break;
+
+                case 3:
+                    float h = 2.32;
+                    break;
+
+                default:
+                    Console.WriteLine("Case de default");
+            }
+
+
+            if(a > b){
+                Console.Write("A es mayor que B");            
+            }
+
+            for(int i = 0; i < 100; i++){
+                    
+                while(a <= 100){
+
+                    string cadena = "i";
+
+                    string otraCadena = ReadLine();
+                }
+
+            }
+
+Console.WriteLine("Que milagro, mirrey");
+
+            int a = 5;
+            int b = 4;
+            string unaCadena  = "soy una cadena";
+            bool cierto = true;
+            bool falso = false;
+            int c = -10;
+            float d = -10.21;
+            char caracter = 'i';
+
+            switch(a){
+
+                case 1:
+                    Console.WriteLine("A vale 1");
+                    break;
+
+                case 2:
+                    int g = 2;
+                    break;
+
+                case 3:
+                    float h = 2.32;
+                    break;
+
+                default:
+                    Console.WriteLine("Case de default");
+            }
+
+
+            if(a > b){
+                Console.Write("A es mayor que B");            
+            }
+
+            for(int i = 0; i < 100; i++){
+                    
+                while(a <= 100){
+
+                    string cadena = "i";
+
+                    string otraCadena = ReadLine();
+                }
+
+            }
+
+            string ultimaCadena = ReadLine();
+
+            char ultimoCaracter = 'k';
+
+        }
+   
+    }
+
 }

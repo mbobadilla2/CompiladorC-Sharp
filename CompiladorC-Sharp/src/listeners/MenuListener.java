@@ -4,6 +4,7 @@ import javacc.CompiladorC_Sharp;
 import javacc.CompiladorC_Sharp;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,12 +37,18 @@ public class MenuListener implements ActionListener{
         
         }else if(e.getSource().equals(menu.getLexSync())){
             BoraFiles.writeFile(openTabs.get(tabs.getSelectedIndex()).getCode());
-            BoraFiles.readTemp();
-            /*try {
+            try {
+                BoraFiles.readTemp();
+                /*try {
                 CompiladorC_Sharp.Compilar(openTabs.get(tabs.getSelectedIndex()));
-            } catch (ParseException ex) {
+                } catch (ParseException ex) {
                 System.out.println("Algo salió mal: " + ex.getMessage());
-            }*/
+                }*/
+            } catch (ParseException ex) {
+                Logger.getLogger(MenuListener.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(MenuListener.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         }else{
         

@@ -105,9 +105,9 @@ public interface CompiladorC_SharpConstants {
   /** RegularExpression Id. */
   int Coma = 47;
   /** RegularExpression Id. */
-  int ArregloIzquierdo = 48;
+  int CorcheteIzquierdo = 48;
   /** RegularExpression Id. */
-  int ArregloDerecho = 49;
+  int CorcheteDerecho = 49;
   /** RegularExpression Id. */
   int Suma = 50;
   /** RegularExpression Id. */
