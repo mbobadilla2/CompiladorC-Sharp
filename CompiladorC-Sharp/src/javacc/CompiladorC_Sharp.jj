@@ -4,6 +4,8 @@ options{
 PARSER_BEGIN(CompiladorC_Sharp)
 	public class CompiladorC_Sharp{
 		static ArrayList<String> lista = new ArrayList();
+		static ArrayList<String> errores = new ArrayList();
+		private int linea = 1;
 
 		public static void main(String[] args) throws ParseException {
 			try{
@@ -16,6 +18,10 @@ PARSER_BEGIN(CompiladorC_Sharp)
 
 		public ArrayList<String> getLista(){
 			return lista;
+		}
+
+		public ArrayList<String> getErrores(){
+			return errores;
 		}
 	}
 PARSER_END(CompiladorC_Sharp)
@@ -235,13 +241,13 @@ TOKEN : {
 		System.out.println("Coma -> " + image);
 		lista.add("Coma -> " + image);
 	}
-	|<ArregloIzquierdo : "["> {
-		System.out.println("ArregloIzquierdo -> " + image);
-		lista.add("ArregloIzquierdo -> " + image);
+	|<CorcheteIzquierdo : "["> {
+		System.out.println("CorcheteIzquierdo -> " + image);
+		lista.add("CorcheteIzquierdo -> " + image);
 	}
-	|<ArregloDerecho : "]"> {
-		System.out.println("ArregloDerecho -> " + image);
-		lista.add("ArregloDerecho -> " + image);
+	|<CorcheteDerecho : "]"> {
+		System.out.println("CorcheteDerecho -> " + image);
+		lista.add("CorcheteDerecho -> " + image);
 	}
 }
 
@@ -378,19 +384,144 @@ SKIP : {
 
 
 void cabecera() : {} {
-	<Using><Identificador>(<Punto><Identificador>)*<CierreSentencia>
+	(try{
+		<Using>
+	}catch(ParserException e){
+		errore.add("No se encontró la clausula \"using\" en la línea " + linea);
+	})
+	(try{
+			<Identificador>
+	}catch(ParserException e){
+		errores.add("Error, se esperaba el nombre de una clase en la línea " + linea);
+	})
+	(try{
+		<Punto>(try{
+					<Identificador>
+				}catch(ParserException e){
+					errores.add("Error, se esperaba el nombre de una clase en la línea " + linea);
+				})
+
+	}catch(ParserException e){
+		errores.add("Error, se esperaba un punto (.) en la línea " + linea);
+	})*
+	(try{
+		<CierreSentencia>
+	}catch(ParserException e){
+		errores.add("Error, se esperaba un punto y coma (;) en la línea " + linea);
+	})
+
+	
 }
 
 void cuerpoProyecto() : {} {
-	<Namespace><Identificador><LlaveIzquierda>cuerpoClase()<LlaveDerecha>
+	(try{
+		<Namespace>
+	}catch(ParseException e){
+		errores.add("Error, no se encontró la clausula namespace en la línea " + linea);
+	})
+	(try{
+		<Identificador>
+	}catch(ParserException e){
+		errores.add("Error, no se encontró un identificador para el namespace en la línea " + linea);
+	})
+	(try{
+		<LlaveIzquierda>
+	}catch(ParserException e){
+		errores.add("Error, falta una llave de apertura ({) en la línea " + linea);
+	})
+	cuerpoClase()
+	(try{
+		<LlaveDerecha>
+	}catch(ParserException e){
+		errores.add("Error, falta una llave de cierre (}) en la línea " + linea);
+	})
+
+	
 }
 
 void cuerpoClase() : {} {
-	<Clase><Identificador><LlaveIzquierda>metodoMain()<LlaveDerecha>
+
+	(try{
+		<Clase>
+	}catch(ParseException e){
+		errores.add("Error, no se encuentra la clausula class en la línea " + linea);
+	})
+	(try{
+		<Identificador>
+	}catch(ParseException e){
+		errores.add("Error, no existe un identificador para la clase en la línea " + linea);
+	})
+	(try{
+		<LlaveIzquierda>
+	}catch(ParseException e){
+		errores.add("Error, falta una llave de apertura ({) en la línea " + linea);
+	})
+	metodoMain()
+	(try{
+		<LlaveDerecha>
+	}catch(ParseException e){
+		errores.add("Error, falta una llave de cierre (}) en la línea " + linea);
+	})
+
 }
 
 void metodoMain() : {} {
-	<Static><Void><Main><ParentesisIzquierdo><String><ArregloIzquierdo><ArregloDerecho><Identificador><ParentesisDerecho><LlaveIzquierda>sentencias()<LlaveDerecha>
+
+	(try{
+		<Static>
+	}catch(ParseException e){
+		errores.add("Error, es necesaria la clausula \"static\" para el método Main en la línea " + linea);
+	})
+	(try{
+		<Void>
+	}catch(ParserException e){
+		errores.add("Error, es necesaria la clausula \"void\" para el método Main en la línea " + linea);
+	})
+	(try{
+		<Main>
+	}catch(ParserException e){
+		errores.add("Error, es necesaria la clausula \"Main\" para el método Main en la línea " + linea);
+	})
+	(try{
+		<ParentesisIzquierdo>
+	}catch(ParserException e){
+		errores.add("Error, falta un Parentesis de apertura en la línea " + linea);
+	})
+	(try{
+		<String>(try{
+					<CorcheteIzquierdo>(try{
+											<CorcheteDerecho>
+										}catch(ParserException e){
+											errores.add("Error, falta un Corchete de cierre en la línea " + linea);
+										})
+				}catch(ParserException e){
+					errores.add("Error, falta un Corchete de apertura en la línea " + linea);
+				})
+	}catch(ParserException e){
+		errores.add("Error, es necesaria declarar un arreglo de String en la línea " + linea);
+	})
+	(try{
+		<Identificador>
+	}catch(ParserException e){
+		errores.add("Error, es necesario un identificador en la línea " + linea);
+	})
+	(try{
+		<ParentesisDerecho>
+	}catch(ParserException e){
+		errores.add("Error, falta un Parentesis de cierre en la línea " + linea);
+	})
+	(try{
+		<LlaveIzquierda>
+	}catch(ParserException e){
+		errores.add("Error, falta una llave de apertura en la línea " + linea);
+	})
+	sentencias()
+	(try{
+		<LlaveDerecha>
+	}catch(ParserException e){
+		errores.add("Error, falta una llave de cierre en la línea " + linea);
+	})
+
 }
 
 void sentencias() : {} {
@@ -398,14 +529,36 @@ void sentencias() : {} {
 	|estructuraIf()
 	|estructuraWhile()
 	|estructuraDoWhile()
-	|declaracionVariable()
-	|<Console><Punto>lectura()<CierreSentencia>
-	|<Console><Punto>escritura()<CierreSentencia>)*
+	|declaracionVariable()(try{
+								<CierreSentencia>
+							}catch(ParserException e){
+								errores.add("Error, falta un punto y coma (;) para cerrar la sentencia en la línea " + linea);
+							})
+	|
+	(try{
+		<Console>
+	}catch(ParserException e){
+		errores.add("Error, falta la clase Console para usar sus metodos en la línea " + linea);
+	})
+	(try{
+		<Punto>
+	}catch(ParserException e){
+		errores.add("Error, es necesario un punto (.) en la línea " + linea);
+	})
+	(lectura() | escritura())
+	(try{
+		<CierreSentencia>
+	}catch(ParserException e){
+		errores.add("Error, falta un punto y coma (;) para cerrar la sentencia en la línea " + linea);
+	}))*
 }
 
 void escritura() : {} {
-	<Write><ParentesisIzquierdo>parametros()<ParentesisDerecho>
-	|<WriteLine><ParentesisIzquierdo>parametros()<ParentesisDerecho>
+
+	
+
+	<Write><ParentesisIzquierdo>parametro()<ParentesisDerecho>
+	|<WriteLine><ParentesisIzquierdo>parametro()<ParentesisDerecho>
 }
 
 void parametro() : {} {
@@ -456,7 +609,7 @@ void declaracionVariableCaracter() : {} {
 }
 
 void operacion() : {} {
-	(operadoresAritmeticos()(parametros()|<Identificador>))+
+	operadoresAritmeticos()(parametros())+
 }
 
 void operadoresAritmeticos () : {} {
