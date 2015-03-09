@@ -68,7 +68,7 @@ Console.WriteLine("Que milagro, mirrey");
                     Console.WriteLine("A vale 1");
                     break;
 
-                case 2:
+                case 
                     int g = 2;
                     break;
 
@@ -127,12 +127,12 @@ Console.WriteLine("Que milagro, mirrey");
 
 
             if(a > b){
-                Console.Write("A es mayor que B");            
+                Console.Write A es mayor que B");            
             }
 
             for(int i = 0; i < 100; i++){
                     
-                while(a <= 100){
+                while(a <= 100)
 
                     string cadena = "i";
 
@@ -144,9 +144,11 @@ Console.WriteLine("Que milagro, mirrey");
             string ultimaCadena = ReadLine();
 
             char ultimoCaracter = 'k';
+int A=10;
 
         }
    
     }
+
 
 }
