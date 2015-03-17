@@ -28,8 +28,10 @@ public class Main {
         JFrame frame = new JFrame("BORA Compiler");
         frame.setSize(900,600); 
         frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
+//        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBackground(BoraColors.DARK_GRAY);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         //Se va a controlar con el windowListener...
         
         // La barra de menú...

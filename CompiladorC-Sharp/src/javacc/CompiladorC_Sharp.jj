@@ -2,23 +2,17 @@ options{
 	STATIC = false;
 }
 PARSER_BEGIN(CompiladorC_Sharp)
-import java.util.ArrayList;
 	public class CompiladorC_Sharp{
 		static ArrayList<String> lista = new ArrayList();
 		static ArrayList<String> errores = new ArrayList();
-		private String error;
+		private int linea = 1;
 
 		public static void main(String[] args) throws ParseException {
-
-			CompiladorC_Sharp csharp= new CompiladorC_Sharp(System.in);
 			try{
+				CompiladorC_Sharp csharp = new CompiladorC_Sharp(System.in);
 				csharp.analizadorLexico();
-				csharp.setError("");
 			} catch(ParseException e){
-				Token ultimo = csharp.getToken(0);
-				csharp.setError("Error: En el token: " + ultimo.image + ". \t En la linea: " + ultimo.beginLine + " y columna: " + ultimo.beginColumn);
-				System.out.println(csharp.getError());
-
+				System.out.println(e.getMessage());
 			}
 		}
 
@@ -26,12 +20,8 @@ import java.util.ArrayList;
 			return lista;
 		}
 
-		public String getError(){
-			return error;
-		}
-
-		public void setError(String error){
-			this.error = error;
+		public ArrayList<String> getErrores(){
+			return errores;
 		}
 	}
 PARSER_END(CompiladorC_Sharp)
@@ -43,91 +33,91 @@ PARSER_END(CompiladorC_Sharp)
 
 //Tokens palabras de acceso/reservadas
 TOKEN : {
-	<Namespace : "namespace"> {										//1
+	<Namespace : "namespace"> {
 		System.out.println("Palabra reservada -> " + image);
 		lista.add("Palabra reservada -> " + image);
 	}
-	|<Using : "using"> {											//2
+	|<Using : "using"> {
 		System.out.println("Importacion de libreria -> " + image);
 		lista.add("Importacion de libreria -> " + image);
 	}
-	|<Clase : "class"> {											//3
+	|<Clase : "class"> {
 		System.out.println("Declaracion de clase -> " + image);
 		lista.add("Declaracion de clase -> " + image);
 	}
-	|<Privado : "private"> {										//4
+	|<Privado : "private"> {
 		System.out.println("Acceso Privado -> " + image);
 		lista.add("Acceso Privado -> " + image);
 	}
-	|<Publico : "public"> {											//5
+	|<Publico : "public"> {
 		System.out.println("Acceso Publico -> " + image);
 		lista.add("Acceso Publico -> " + image);
 	}
-	|<Protegido : "protected"> {									//6
+	|<Protegido : "protected"> {
 		System.out.println("Acceso Protegido -> " + image);
 		lista.add("Acceso Protegido -> " + image);
 	}
-	|<Funcion : "funcion"> {										//7
+	|<Funcion : "funcion"> {
 		System.out.println("Palabra reservada -> " + image);
 		lista.add("Palabra reservada -> " + image);
 	}
-	|<Main : "Main"> {												//8
+	|<Main : "Main"> {
 		System.out.println("Nombre funcion principal -> " + image);
 		lista.add("Nombre funcion principal -> " + image);
 	}
-	|<Retorno : "return"> {											//9
+	|<Retorno : "return"> {
 		System.out.println("Palabra reservada -> " + image);
 		lista.add("Pablabra reservada -> " + image);
 	}
-	|<Goto : "goto"> {												//10
+	|<Goto : "goto"> {
 		System.out.println("Palabra reservada -> " + image);
 		lista.add("Pablabra reservada -> " + image);
 	}
-	|<If : "if"> {													//11
+	|<If : "if"> {
 		System.out.println("Condicional -> " + image);
 		lista.add("Condicional -> " + image);
 	}
-	|<Else : "else"> {												//12
+	|<Else : "else"> {
 		System.out.println("Condicional -> " + image);
 		lista.add("Condicional -> " + image);
 	}
-	|<For : "for"> {												//13
+	|<For : "for"> {
 		System.out.println("Ciclo -> " + image);
 		lista.add("Ciclo -> " + image);
 	}
-	|<Do : "do"> {													//14
+	|<Do : "do"> {
 		System.out.println("Ciclo -> " + image);
 		lista.add("Ciclo -> " + image);
 	}
-	|<While : "while"> {											//15
+	|<While : "while"> {
 		System.out.println("Ciclo -> " + image);
 		lista.add("Ciclo -> " + image);
 	}
-	|<Switch : "switch"> {											//16
+	|<Switch : "switch"> {
 		System.out.println("Condicional -> " + image);
 		lista.add("Condicional -> " + image);
 	}
-	|<Case : "case"> {												//17
+	|<Case : "case"> {
 		System.out.println("Palabra reservada -> " + image);
 		lista.add("Palabra reservada -> " + image);
 	}
-	|<Break : "break"> {											//18
+	|<Break : "break"> {
 		System.out.println("Palabra reservada -> " + image);
 		lista.add("Palabra reservada -> " + image);
 	}
-	|<Default : "default"> {										//19
+	|<Default : "default"> {
 		System.out.println("Palabra reservada -> " + image);
 		lista.add("Palabra reservada -> " + image);
 	}
-	|<Continue : "continue"> {										//20
+	|<Continue : "continue"> {
 		System.out.println("Palabra reservada -> " + image);
 		lista.add("Palabra reservada -> " + image);
 	}
-	|<Void : "void"> {												//21
+	|<Void : "void"> {
 		System.out.println("Palabra reservada -> " + image);
 		lista.add("Palabra reservada -> " + image);
 	}
-	|<Static : "static"> {											//22
+	|<Static : "static"> {
 		System.out.println("Palabra reservada -> " + image);
 		lista.add("Palabra reservada -> " + image);
 	}
@@ -136,23 +126,23 @@ TOKEN : {
 
 //Palabras reservadas para datos
 TOKEN : {
-	<Integer: "int"> {												//23
+	<Integer: "int"> {
 		System.out.println("Tipo de variable -> " + image + "(Entero)");
 		lista.add("Tipo de variable -> " + image + "(Entero)");
 	}
-	|<Float: "float"> {												//24
+	|<Float: "float"> {
 		System.out.println("Tipo de variable -> " + image + "(Flotante)");
 		lista.add("Tipo de variable -> " + image + "(Flotante)");
 	}
-	|<String: "string"> {											//25
+	|<String: "string"> {
 		System.out.println("Tipo de variable -> " + image + "(Cadena)");
 		lista.add("Tipo de variable -> " + image + "(Cadena)");
 	}
-	|<Char: "char"> {												//26
+	|<Char: "char"> {
 		System.out.println("Tipo de variable -> " + image + "(Caracter)");
 		lista.add("Tipo de variable -> " + image + "(Caracter)");
 	}
-	|<Booleano: "bool"> {											//27
+	|<Booleano: "bool"> {
 		System.out.println("Tipo de variable -> " + image + "(Caracter)");
 		lista.add("Tipo de variable -> " + image + "(Caracter)");
 	}
@@ -161,31 +151,31 @@ TOKEN : {
 
 //Tipo de datos
 TOKEN : {
-	<Entero : (["0"-"9"])+> {										//28
+	<Entero : (["0"-"9"])+> {
 		System.out.println("Tipo de dato entero -> " + image);
 		lista.add("Tipo de dato entero -> " + image);
 	}
-	|<Cadena : (["\""](["a"-"z","A"-"Z","0"-"9"," ","!"-"?"])*["\""])> {	//29
+	|<Cadena : (["\""](["a"-"z","A"-"Z","0"-"9"," ","!"-"?"])*["\""])> {
 		System.out.println("Tipo de dato String -> " + image);
 		lista.add("Tipo de dato String -> " + image);
 	}
-	|<Caracter : (["'"]["a"-"z","A"-"Z","0"-"9"," "]["'"])> {		//30
+	|<Caracter : (["'"]["a"-"z","A"-"Z","0"-"9"," "]["'"])> {
 		System.out.println("Tipo de dato caracter -> " + image);
 		lista.add("Tipo de dato caracter -> " + image);
 	}
-	|<Flotante : ((["0"-"9"])+["."](["0"-"9"])+)+> {				//31
+	|<Flotante : ((["0"-"9"])+["."](["0"-"9"])+)+> {
 		System.out.println("Tipo de dato flotante -> " + image);
 		lista.add("Tipo de dato flotante -> " + image);
 	}
-	|<True : "true"> {												//32
+	|<True : "true"> {
 		System.out.println("Tipo de dato Booleano -> " + image);
 		lista.add("Tipo de dato Booleano -> " + image);
 	}
-	|<False : "false"> {											//33
+	|<False : "false"> {
 		System.out.println("Tipo de dato Booleano " + image);
 		lista.add("Tipo de dato Booleano -> " + image);
 	}
-	|<Nulo : "null"> {												//34
+	|<Nulo : "null"> {
 		System.out.println("Tipo de dato nulo -> " + image);
 		lista.add("Tipo de dato nulo -> " + image);
 	}
@@ -194,23 +184,23 @@ TOKEN : {
 //Token metodos cools basics
 
 TOKEN : {
-	<Console : "Console"> {											//35
+	<Console : "Console"> {
 		System.out.println("Refencia a clase -> " + image);
 		lista.add("Refencia a clase -> " + image);
 	}
-	|<WriteLine : "WriteLine"> {									//36
+	|<WriteLine : "WriteLine"> {
 		System.out.println("Metodo de escritura -> " + image);
 		lista.add("Metodo de escritura -> " + image);
 	}
-	|<Write : "Write"> {											//37
+	|<Write : "Write"> {
 		System.out.println("Metodo de escritura -> " + image);
 		lista.add("Metodo de escritura -> " + image);
 	}
-	|<ReadLine : "ReadLine"> {										//38
+	|<ReadLine : "ReadLine"> {
 		System.out.println("Metodo de lectura -> " + image);
 		lista.add("Metodo de lectura -> " + image);
 	}
-	|<ReadKey : "ReadKey"> {										//39
+	|<ReadKey : "ReadKey"> {
 		System.out.println("Metodo de lectura -> " + image);
 		lista.add("Metodo de lectura -> " + image);
 	}
@@ -219,43 +209,43 @@ TOKEN : {
 //Tokens de puntuacion
 
 TOKEN : {
-	<LlaveIzquierda : "{"> {										//40
+	<LlaveIzquierda : "{"> {
 		System.out.println("Llave Izquierda -> " + image);
 		lista.add("Llave Izquierda -> " + image);
 	}
-	|<LlaveDerecha : "}"> {											//41
+	|<LlaveDerecha : "}"> {
 		System.out.println("Llave Derecha -> " + image);
 		lista.add("Llave Derecha -> " + image);
 	}
-	|<ParentesisDerecho : ")"> {									//42
+	|<ParentesisDerecho : ")"> {
 		System.out.println("Parentesis -> " + image);
 		lista.add("Parentesis -> " + image);
 	}
-	|<ParentesisIzquierdo : "(" > {									//43
+	|<ParentesisIzquierdo : "(" > {
 		System.out.println("Parentesis -> " + image);
 		lista.add("Parentesis -> " + image);
 	}
-	|<CierreSentencia : ";"> {										//44
+	|<CierreSentencia : ";"> {
 		System.out.println("Cierre de sentencia -> " + image);
 		lista.add("Cierre de sentencia -> " + image);
 	}
-	|<Punto : "."> {												//45
+	|<Punto : "."> {
 		System.out.println("Punto -> " + image);
 		lista.add("Punto -> " + image);
 	}
-	|<DosPuntos : ":"> {											//46
+	|<DosPuntos : ":"> {
 		System.out.println("Dos puntos -> " + image);
 		lista.add("Dos puntos -> " + image);
 	}
-	|<Coma : ","> {													//47
+	|<Coma : ","> {
 		System.out.println("Coma -> " + image);
 		lista.add("Coma -> " + image);
 	}
-	|<CorcheteIzquierdo : "["> {									//48
+	|<CorcheteIzquierdo : "["> {
 		System.out.println("CorcheteIzquierdo -> " + image);
 		lista.add("CorcheteIzquierdo -> " + image);
 	}
-	|<CorcheteDerecho : "]"> {										//49
+	|<CorcheteDerecho : "]"> {
 		System.out.println("CorcheteDerecho -> " + image);
 		lista.add("CorcheteDerecho -> " + image);
 	}
@@ -263,23 +253,23 @@ TOKEN : {
 
 //Tokens para operaciones aritmeticas
 TOKEN : {
-	<Suma : "+"> {													//50
+	<Suma : "+"> {
 		System.out.println("Operador aritmetico suma -> " + image);
 		lista.add("Operador aritmetico suma -> " + image);
 	}
-	|<Resta : "-"> {												//51
+	|<Resta : "-"> {
 		System.out.println("Operador aritmetico resta -> " + image);
 		lista.add("Operador aritmetico -> resta " + image);
 	}
-	|<Multiplicacion : "*"> {										//52
+	|<Multiplicacion : "*"> {
 		System.out.println("Operador aritmetico multiplicacion -> " + image);
 		lista.add("Operador aritmetico multiplicacion -> " + image);
 	}
-	|<Division : "/"> {												//53
+	|<Division : "/"> {
 		System.out.println("Operador aritmetico division -> " + image);
 		lista.add("Operador aritmetico division -> " + image);
 	}
-	|<Modulo : "%"> {												//54
+	|<Modulo : "%"> {
 		System.out.println("Operador aritmetico modulo -> " + image);
 		lista.add("Operador aritmetico modulo -> " + image);
 	}
@@ -287,35 +277,35 @@ TOKEN : {
 
 //Toneks para asignaciones
 TOKEN : {
-	<IgualA : "="> {												//55
+	<IgualA : "="> {
 		System.out.println("Asignacion -> " + image);
 		lista.add("Asignacion -> " + image);
 	}
-	|<SumaIgualA : "+="> {											//56
+	|<SumaIgualA : "+="> {
 		System.out.println("Asignacion -> " + image);
 		lista.add("Asignacion -> " + image);
 	}
-	|<RestaIgualA : "-="> {											//57
+	|<RestaIgualA : "-="> {
 		System.out.println("Asignacion -> " + image);
 		lista.add("Asignacion -> " + image);
 	}
-	|<MultiplicacionIgualA : "*="> {								//58
+	|<MultiplicacionIgualA : "*="> {
 		System.out.println("Asignacion -> " + image);
 		lista.add("Asignacion -> " + image);
 	}
-	|<DivisionIgualA : "/="> {										//59
+	|<DivisionIgualA : "/="> {
 		System.out.println("Asignacion -> " + image);
 		lista.add("Asignacion -> " + image);
 	}
-	|<ModuloIgualA : "%="> {										//60
+	|<ModuloIgualA : "%="> {
 		System.out.println("Asignacion -> " + image);
 		lista.add("Asignacion -> " + image);
 	}
-	|<Incremento : "++"> {											//61
+	|<Incremento : "++"> {
 		System.out.println("Asignacion -> " + image);
 		lista.add("Asignacion -> " + image);
 	}
-	|<Decremento : "--"> {											//62
+	|<Decremento : "--"> {
 		System.out.println("Asignacion -> " + image);
 		lista.add("Asignacion -> " + image);
 	}
@@ -323,27 +313,27 @@ TOKEN : {
 
 //Tokens operadores relacionales
 TOKEN : {
-	<IgualQue : "=="> {												//63
+	<IgualQue : "=="> {
 		System.out.println("Operador Relacional -> " + image);
 		lista.add("Operador Relacional -> " + image);
 	}
-	|<MenorQue : "<"> {												//64
+	|<MenorQue : "<"> {
 		System.out.println("Operador Relacional -> " + image);
 		lista.add("Operador Relacional -> " + image);
 	}
-	|<MayorQue : ">"> {												//65
+	|<MayorQue : ">"> {
 		System.out.println("Operador Relacional -> " + image);
 		lista.add("Operador Relacional -> " + image);
 	}
-	|<MenorIgualQue : "<="> {										//66
+	|<MenorIgualQue : "<="> {
 		System.out.println("Operador Relacional -> " + image);
 		lista.add("Operador Relacional -> " + image);
 	}
-	|<MayorIgualQue : ">="> {										//67
+	|<MayorIgualQue : ">="> {
 		System.out.println("Operador Relacional -> " + image);
 		lista.add("Operador Relacional -> " + image);
 	}
-	|<DiferenteQue : "!="> {										//68
+	|<DiferenteQue : "!="> {
 		System.out.println("Operador Relacional -> " + image);
 		lista.add("Operador Relacional -> " + image);
 	}
@@ -351,11 +341,11 @@ TOKEN : {
 
 //Tokens operadores logicos
 TOKEN : {
-	<And : "&&"> {													//69
+	<And : "&&"> {
 		System.out.println("Operador Logico -> " + image);
 		lista.add("Operador Logico -> " + image);
 	}
-	|<Or : "||"> {													//70
+	|<Or : "||"> {
 		System.out.println("Operador Logico -> " + image);
 		lista.add("Operador Logico -> " + image);
 	}
@@ -363,7 +353,7 @@ TOKEN : {
 
 //Token para identificadores
 TOKEN : {
-	<Identificador : ["a"-"z", "A"-"Z"](["a"-"z", "A"-"Z", "0"-"9", "_"])*> {		//71
+	<Identificador : ["a"-"z", "A"-"Z"](["a"-"z", "A"-"Z", "0"-"9", "_"])*> {
 		System.out.println("Identificador -> " + image);
 		lista.add("Identificador -> " + image);
 	}
@@ -371,15 +361,15 @@ TOKEN : {
 
 //Token comentarios
 TOKEN : {
-	<ComentarioLinea : "//" > {										//72
+	<ComentarioLinea : "//" > {
 		System.out.println("Comentario de una linea -> " + image);
 		lista.add("Comentario de una linea -> " + image);
 	}
-	|<ComentarioInicio : ("/*" | "/**") > {							//73
+	|<ComentarioInicio : ("/*" | "/**") > {
 		System.out.println("Comentario de parrafo inicio -> " + image);
 		lista.add("Comentario de parrafo inicio -> " + image);
 	}
-	|<ComentarioTermino : "*/" > {									//74
+	|<ComentarioTermino : "*/" > {
 		System.out.println("Comentario de parrafo termino -> " + image);
 		lista.add("Comentario de parrafo termino -> " + image);
 	}
@@ -394,55 +384,220 @@ SKIP : {
 
 
 void cabecera() : {} {
+	(try{
+		<Using>
+	}catch(ParseException e){
+		errores.add("No se encontró la clausula \"using\" en la línea " + linea);
+	})
+	(try{
+			<Identificador>
+	}catch(ParseException e){
+		errores.add("Error, se esperaba el nombre de una clase en la línea " + linea);
+	})
+	(try{
+		<Punto>(try{
+					<Identificador>
+				}catch(ParseException e){
+					errores.add("Error, se esperaba el nombre de una clase en la línea " + linea);
+				})
+
+	}catch(ParseException e){
+		errores.add("Error, se esperaba un punto (.) en la línea " + linea);
+	})*
+	(try{
+		<CierreSentencia>
+	}catch(ParseException e){
+		errores.add("Error, se esperaba un punto y coma (;) en la línea " + linea);
+	})
+
 	
-	<Using><Identificador>(<Punto><Identificador>)*<CierreSentencia>
-		
 }
 
 void cuerpoProyecto() : {} {
+	(try{
+		<Namespace>
+	}catch(ParseException e){
+		errores.add("Error, no se encontró la clausula namespace en la línea " + linea);
+	})
+	(try{
+		<Identificador>
+	}catch(ParseException e){
+		errores.add("Error, no se encontró un identificador para el namespace en la línea " + linea);
+	})
+	(try{
+		<LlaveIzquierda>
+	}catch(ParseException e){
+		errores.add("Error, falta una llave de apertura ({) en la línea " + linea);
+	})
+	cuerpoClase()
+	(try{
+		<LlaveDerecha>
+	}catch(ParseException e){
+		errores.add("Error, falta una llave de cierre (}) en la línea " + linea);
+	})
 
-		<Namespace><Identificador><LlaveIzquierda>cuerpoClase()<LlaveDerecha>
 	
 }
 
 void cuerpoClase() : {} {
 
-		<Clase><Identificador><LlaveIzquierda>metodoMain()<LlaveDerecha>
+	(try{
+		<Clase>
+	}catch(ParseException e){
+		errores.add("Error, no se encuentra la clausula class en la línea " + linea);
+	})
+	(try{
+		<Identificador>
+	}catch(ParseException e){
+		errores.add("Error, no existe un identificador para la clase en la línea " + linea);
+	})
+	(try{
+		<LlaveIzquierda>
+	}catch(ParseException e){
+		errores.add("Error, falta una llave de apertura ({) en la línea " + linea);
+	})
+	metodoMain()
+	(try{
+		<LlaveDerecha>
+	}catch(ParseException e){
+		errores.add("Error, falta una llave de cierre (}) en la línea " + linea);
+	})
+
 }
 
 void metodoMain() : {} {
 
-		<Static><Void><Main><ParentesisIzquierdo><String><CorcheteIzquierdo><CorcheteDerecho><Identificador><ParentesisDerecho><LlaveIzquierda>sentencias()<LlaveDerecha>
+	(try{
+		<Static>
+	}catch(ParseException e){
+		errores.add("Error, es necesaria la clausula \"static\" para el método Main en la línea " + linea);
+	})
+	(try{
+		<Void>
+	}catch(ParseException e){
+		errores.add("Error, es necesaria la clausula \"void\" para el método Main en la línea " + linea);
+	})
+	(try{
+		<Main>
+	}catch(ParseException e){
+		errores.add("Error, es necesaria la clausula \"Main\" para el método Main en la línea " + linea);
+	})
+	(try{
+		<ParentesisIzquierdo>
+	}catch(ParseException e){
+		errores.add("Error, falta un Parentesis de apertura en la línea " + linea);
+	})
+	(try{
+		<String>(try{
+					<CorcheteIzquierdo>(try{
+											<CorcheteDerecho>
+										}catch(ParseException e){
+											errores.add("Error, falta un Corchete de cierre en la línea " + linea);
+										})
+				}catch(ParseException e){
+					errores.add("Error, falta un Corchete de apertura en la línea " + linea);
+				})
+	}catch(ParseException e){
+		errores.add("Error, es necesaria declarar un arreglo de String en la línea " + linea);
+	})
+	(try{
+		<Identificador>
+	}catch(ParseException e){
+		errores.add("Error, es necesario un identificador en la línea " + linea);
+	})
+	(try{
+		<ParentesisDerecho>
+	}catch(ParseException e){
+		errores.add("Error, falta un Parentesis de cierre en la línea " + linea);
+	})
+	(try{
+		<LlaveIzquierda>
+	}catch(ParseException e){
+		errores.add("Error, falta una llave de apertura en la línea " + linea);
+	})
+	sentencias()
+	(try{
+		<LlaveDerecha>
+	}catch(ParseException e){
+		errores.add("Error, falta una llave de cierre en la línea " + linea);
+	})
 
 }
 
 void sentencias() : {} {
-
 	(estructuraFor()
 	|estructuraIf()
 	|estructuraWhile()
 	|estructuraDoWhile()
 	|estructuraSwitch()
-	|declaracionSinTipo()<CierreSentencia>
-	|declaracionVariable()<CierreSentencia>
-	|<Console><Punto>(lectura() | escritura())<CierreSentencia>)*
-}
-
-void declaracionSinTipo() : {} {
-
-	<Identificador><IgualA>parametro()(operacion())*
-						
+	|declaracionVariable()(try{
+								<CierreSentencia>
+							}catch(ParseException e){
+								errores.add("Error, falta un punto y coma (;) para cerrar la sentencia en la línea " + linea);
+							})
+	|
+	(try{
+		<Console>
+	}catch(ParseException e){
+		errores.add("Error, falta la clase Console para usar sus metodos en la línea " + linea);
+	})
+	(try{
+		<Punto>
+	}catch(ParseException e){
+		errores.add("Error, es necesario un punto (.) en la línea " + linea);
+	})
+	(lectura() | escritura())
+	(try{
+		<CierreSentencia>
+	}catch(ParseException e){
+		errores.add("Error, falta un punto y coma (;) para cerrar la sentencia en la línea " + linea);
+	}))*
 }
 
 void escritura() : {} {
 
-	<Write><ParentesisIzquierdo>parametro()<ParentesisDerecho>
-	|<WriteLine><ParentesisIzquierdo>parametro()<ParentesisDerecho>
-		
+	(try{
+		<Write>
+	}catch(ParserException e){
+		errores.add("Error, metodo mal escrito o inexistente en la línea " + linea);
+	})
+	(try{
+		<ParentesisIzquierdo>
+	}catch(ParserException e){
+		errores.add("Error, falta un Parentesis de apertura en la línea " + linea);
+	})
+	parametro()
+	(try{
+		<ParentesisDerecho>
+	}catch(ParserException e){
+		errores.add("Error, falta un Parentesis de cierre en la línea " + linea);
+	})
+
+	|
+
+	(try{
+		<WriteLine>
+	}catch(ParserException e){
+		errores.add("Error, metodo mal escrito o inexistente en la línea " + linea);
+	})
+	(try{
+		<ParentesisIzquierdo>
+	}catch(ParserException e){
+		errores.add("Error, falta un Parentesis de apertura en la línea " + linea);
+	})
+	parametro()
+	(try{
+		<ParentesisDerecho>
+	}catch(ParserException e){
+		errores.add("Error, falta un Parentesis de cierre en la línea " + linea);
+	})
+
+	
 }
 
 void parametro() : {} {
 
+	(try{
 		<Identificador>
 		|<Entero>
 		|<Cadena>
@@ -450,17 +605,56 @@ void parametro() : {} {
 		|<Flotante>
 		|<Booleano>
 
-}
+	}catch(ParserException e){
+		errores.add("Error, faltan parametros en la línea " + linea);
+	})
+	
+	}
 
 void parametros() : {} {
-	
-	parametro()(<Coma>parametro())*
+	parametro()((try{
+					<Coma>
+				}catch(ParserException e){
+					errores.add("Error, falta una coma para agregar mas parametros en la línea " + linea);
+				}) parametro())*
 }
 
 void lectura() : {} {
 
-	<ReadKey><ParentesisIzquierdo><ParentesisDerecho>
-	|<ReadLine><ParentesisIzquierdo><ParentesisDerecho>
+	(try{
+		<Read>
+	}catch(ParserException e){
+		errores.add("Error, metodo mal escrito o inexistente en la línea " + linea);
+	})
+	(try{
+		<ParentesisIzquierdo>
+	}catch(ParserException e){
+		errores.add("Error, falta un Parentesis de apertura en la línea " + linea);
+	})
+	(try{
+		<ParentesisDerecho>
+	}catch(ParserException e){
+		errores.add("Error, falta un Parentesis de cierre en la línea " + linea);
+	})
+
+	|
+
+	(try{
+		<ReadLine>
+	}catch(ParserException e){
+		errores.add("Error, metodo mal escrito o inexistente en la línea " + linea);
+	})
+	(try{
+		<ParentesisIzquierdo>
+	}catch(ParserException e){
+		errores.add("Error, falta un Parentesis de apertura en la línea " + linea);
+	})
+	(try{
+		<ParentesisDerecho>
+	}catch(ParserException e){
+		errores.add("Error, falta un Parentesis de cierre en la línea " + linea);
+	})
+
 	
 }
 
@@ -470,7 +664,6 @@ void declaracionVariable() : {} {
 	|declaracionVariableCadena()
 	|declaracionVariableCaracter()
 	|declaracionVariableFlotante()
-	|<Identificador>asignacionVariablesFor()
 	
 }
 
@@ -495,23 +688,33 @@ void declaracionVariableCaracter() : {} {
 }
 
 void operacion() : {} {
-	operadoresAritmeticos()parametros()
+	operadoresAritmeticos()(parametros())+
 }
 
 void operadoresAritmeticos () : {} {
 
-	<Suma>
-	|<Resta>
-	|<Multiplicacion>
-	|<Division>
-	|<Modulo>
+	(try{
+		<Suma>
+		|<Resta>
+		|<Multiplicacion>
+		|<Division>
+		|<Modulo>
+
+	}catch(ParserException e){
+		errores.add("Error, falta un operador aritmetico en la línea " + linea);
+	})
 
 }
 
 void estructuraSwitch () : {} {
 
-		<Switch><ParentesisIzquierdo><Identificador><ParentesisDerecho><LlaveIzquierda>casos()(predeterminado())?<LlaveDerecha>
-	
+	(try{
+		<Switch>
+	}catch(ParserException e){
+		errores.add("Error, falta un identificador en la línea " + linea);
+	})
+
+	<Switch><ParentesisIzquierdo><Identificador><ParentesisDerecho><LlaveIzquierda>casos()(predeterminado())?<LlaveDerecha>
 }
 
 void casos () : {} {
@@ -543,13 +746,20 @@ void condiciones() : {} {
 }
 
 void condicionBooleana() : {} {
-	(parametro()signosComparacion()parametro())|(<True>|<False>)
+	(diferenteIgual())(<True>|<False>)
 }
 
 void condicionAritmetica () : {} {
-	signosComparacion()(<Identificador>|<Entero>)
+	comparacionesIf()(<Identificador>|<Entero>)
 }
 
+void comparacionesIf () : {} {
+	comparacionesFor()
+}
+
+void diferenteIgual() : {} {
+	(<IgualQue>|<DiferenteQue>)
+}
 
 void estructuraWhile () : {}{
 	<While><ParentesisIzquierdo><Identificador>(condicionBooleana()|condicionAritmetica())(condicionesAdicionales())?<ParentesisDerecho><LlaveIzquierda>sentencias()<LlaveDerecha>
@@ -562,26 +772,37 @@ void estructuraDoWhile() : {}{
 
 void estructuraFor () : {} {
 	<For><ParentesisIzquierdo>(<Integer> | <Float>)?<Identificador><IgualA><Entero><CierreSentencia>
-	<Identificador>signosComparacion()<Entero><CierreSentencia><Identificador>asignacionesFor()<ParentesisDerecho>
+	<Identificador>comparacionesFor()<Entero><CierreSentencia><Identificador>asignacionesFor()<ParentesisDerecho>
 	<LlaveIzquierda>sentencias()<LlaveDerecha>
 }
 
-void signosComparacion () : {} {
+void comparacionesFor () : {} {
+	(try{
+		<MenorQue>
+		|<MenorIgualQue>
+		|<MayorQue>
+		|<MayorIgualQue>
+	}catch(ParserException e){
+		errores.add("Error, falta un simbolo de comparacion en la línea " + linea);
+	})
 
-	<IgualQue>
-	|<DiferenteQue>
-	|<MenorQue>
-	|<MenorIgualQue>
-	|<MayorQue>
-	|<MayorIgualQue>
 	
 }
 
 void asignacionesFor () : {} {
-	
 	asignacionVariablesFor()
-	|<Incremento>
-	|<Decremento>
+	|
+	(try{
+		<Incremento>
+	}catch(ParserException e){
+		errores.add("Error, falta incremento en la línea " + linea);
+	})
+	|
+	(try{
+		<Decremento>
+	}catch(ParserException e){
+		errores.add("Error, falta decremento en la línea " + linea);
+	})
 	
 }
 
@@ -594,5 +815,5 @@ void asignacionVariablesFor () : {} {
 }
 
 void analizadorLexico() : {} {
-	(cabecera())+cuerpoProyecto()<EOF>
+	cabecera()cuerpoProyecto()<EOF>
 }

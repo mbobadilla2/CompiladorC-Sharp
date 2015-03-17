@@ -73,7 +73,7 @@ public class MainMenu extends JMenuBar{
         // Build menu...
         lexical = new JMenuItem("Lexical phase");
         syntactic = new JMenuItem("Syntactic phase");
-        lexSync = new JMenuItem("Lex&Sync");
+        lexSync = new JMenuItem("Fire");
         
         build.add(lexical);
         build.add(syntactic);

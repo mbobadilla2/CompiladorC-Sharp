@@ -10,6 +10,7 @@ import java.awt.Color;
 public class BoraColors {
     public static Color WHITE = new Color(hexToRGB("FFFFFF"));
     public static Color BLACK = new Color(hexToRGB("000000"));
+    public static Color GRAY = new Color(hexToRGB("252623"));
     public static Color DARK_GRAY = new Color(hexToRGB("292B26"));
     public static Color LIGHT_GRAY = new Color(hexToRGB("494949"));
     public static Color LIGHTER_GRAY = new Color(hexToRGB("6A6A6A"));
