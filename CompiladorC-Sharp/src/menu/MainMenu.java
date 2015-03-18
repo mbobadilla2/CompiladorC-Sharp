@@ -13,7 +13,7 @@ import listeners.MenuListener;
 
 public class MainMenu extends JMenuBar{
     private JMenu file, edit, build, help, openRecent;
-    private JMenuItem newFile, open,
+    private JMenuItem newFile, open, close,
                         save, saveAs, saveAll, exit;
     private JMenuItem copy, cut, paste, find, replace;
     private JMenuItem lexical, syntactic, lexSync;
@@ -39,6 +39,7 @@ public class MainMenu extends JMenuBar{
         // File menu...
         newFile = new JMenuItem("New file");
         open = new JMenuItem("Open");
+        close = new JMenuItem("Close");
         save = new JMenuItem("Save");
         saveAs = new JMenuItem("Save as...");
         saveAll = new JMenuItem("Save all");
@@ -48,6 +49,8 @@ public class MainMenu extends JMenuBar{
         file.add(new JSeparator());
         file.add(open);
         file.add(openRecent);
+        file.add(new JSeparator());
+        file.add(close);
         file.add(new JSeparator());
         file.add(save);
         file.add(saveAs);
@@ -101,6 +104,7 @@ public class MainMenu extends JMenuBar{
     public void addEvents(MenuListener listener){
         newFile.addActionListener(listener);
         open.addActionListener(listener);
+        close.addActionListener(listener);
         save.addActionListener(listener);
         saveAs.addActionListener(listener);
         saveAll.addActionListener(listener);
@@ -129,6 +133,10 @@ public class MainMenu extends JMenuBar{
         return open;
     }
 
+    public JMenuItem getClose() {
+        return close;
+    }
+    
     public JMenuItem getOpenRecent() {
         return openRecent;
     }

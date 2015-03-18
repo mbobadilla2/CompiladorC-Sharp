@@ -2,6 +2,7 @@ package frames;
 
 import java.awt.Insets;
 import java.awt.Window;
+import java.lang.reflect.Method;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
@@ -25,6 +26,11 @@ public class Main {
 
     public static void drawWindow(){
         // Configuramos la ventana principal...
+        if (isMacOSX()) {
+            System.setProperty(
+                    "com.apple.mrj.application.apple.menu.about.name",
+                    "BORA Compiler");
+        }
         JFrame frame = new JFrame("BORA Compiler");
         frame.setSize(900,600); 
         frame.setLocationRelativeTo(null);
@@ -56,6 +62,9 @@ public class Main {
         
         // Agregamos a la ventana...
         frame.getContentPane().add(tabs);
+        if (isMacOSX()) {
+            enableFullScreenMode(frame);
+        }
         frame.setVisible(true);
     }
     
@@ -78,5 +87,25 @@ public class Main {
             // No hagas nada...
         }    
         
+    }
+    
+    //Para poner el frame en pantalla completa en OSX
+    private static boolean isMacOSX() {
+        return System.getProperty("os.name").indexOf("Mac OS X") >= 0;
+    }
+    
+    public static void enableFullScreenMode(Window window) {
+        String className = "com.apple.eawt.FullScreenUtilities";
+        String methodName = "setWindowCanFullScreen";
+ 
+        try {
+            Class<?> clazz = Class.forName(className);
+            Method method = clazz.getMethod(methodName, new Class<?>[] {
+                    Window.class, boolean.class });
+            method.invoke(null, window, true);
+        } catch (Throwable t) {
+            System.err.println("Full screen mode is not supported");
+            t.printStackTrace();
+        }
     }
 }

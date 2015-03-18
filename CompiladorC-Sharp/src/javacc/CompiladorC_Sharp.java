@@ -33,6 +33,9 @@ import thangs.BoraFiles;
                                 
                                 CompiladorC_SharpTokenManager.lista.clear();
                                 
+                                BoraFiles.writeFile(ntp.getTxtTokens().getText(), BoraFiles.TOKENS);
+                                BoraFiles.writeFile(ntp.getTxtSyntacticErrors().getText(), BoraFiles.SYNTACTIC_ERROR);
+                                
                         } catch(ParseException e){
                                 System.out.println(e.getMessage());
                                 String errores = "";
@@ -49,6 +52,9 @@ import thangs.BoraFiles;
 //                                ntp.getTerminal().setText(errores);
                                 
                                 CompiladorC_Sharp.errores.clear();
+                                
+                                BoraFiles.writeFile(ntp.getTxtTokens().getText(), BoraFiles.TOKENS);
+                                BoraFiles.writeFile(ntp.getTxtSyntacticErrors().getText(), BoraFiles.SYNTACTIC_ERROR);
                         }
                 }
 

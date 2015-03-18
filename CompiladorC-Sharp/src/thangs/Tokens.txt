@@ -1,0 +1,33 @@
+Identificador -> options
+Llave Izquierda -> {
+Identificador -> STATIC
+Asignacion -> =
+Importacion de libreria -> using
+Identificador -> System
+Cierre de sentencia -> ;
+Palabra reservada -> namespace
+Identificador -> Prueba
+Llave Izquierda -> {
+Declaracion de clase -> class
+Identificador -> Test
+Llave Izquierda -> {
+Palabra reservada -> static
+Palabra reservada -> void
+Nombre funcion principal -> Main
+Parentesis -> (
+Tipo de variable -> string(Cadena)
+CorcheteIzquierdo -> [
+CorcheteDerecho -> ]
+Identificador -> args
+Parentesis -> )
+Llave Izquierda -> {
+Refencia a clase -> Console
+Punto -> .
+Metodo de escritura -> WriteLine
+Parentesis -> (
+Tipo de dato String -> "Hola mama, ya se programar"
+Parentesis -> )
+Cierre de sentencia -> ;
+Llave Derecha -> }
+Llave Derecha -> }
+Llave Derecha -> }

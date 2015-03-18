@@ -12,6 +12,7 @@ import thangs.BoraColors;
  */
 
 public class TabsPanel extends JTabbedPane {
+    public static String TITLE = "Untitled";
     protected JFrame frame;
     
     public TabsPanel(JFrame frame){
@@ -22,6 +23,6 @@ public class TabsPanel extends JTabbedPane {
     
     public void newTab(){
         NewTabPanel tab = new NewTabPanel(frame, new JPanel(), new JPanel());
-        this.add(tab, "Untitled");
+        this.add(tab, TITLE);
     }
 }

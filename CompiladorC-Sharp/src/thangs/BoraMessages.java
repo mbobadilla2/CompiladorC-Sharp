@@ -1,0 +1,23 @@
+package thangs;
+
+import javax.swing.JOptionPane;
+
+/**
+ * @author Fernando2
+ * Created on Mar 17, 2015, 6:58:20 PM
+ */
+
+public class BoraMessages {
+
+    public static void error(String msg, String title){
+        JOptionPane.showMessageDialog(null, msg, title, JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public static void error(String msg){
+        JOptionPane.showMessageDialog(null, msg, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public static void warning(String msg, String title){
+        JOptionPane.showMessageDialog(null, msg, title, JOptionPane.OK_OPTION);
+    }
+}
