@@ -30,7 +30,7 @@ public class BoraFiles {
     
     public static void readTemp() throws ParseException, FileNotFoundException{
         System.out.println("COMPILA");
-        CompiladorC_Sharp.Compilar(MenuListener.openTabs.get(MenuListener.tabs.getSelectedIndex()));
+        CompiladorC_Sharp.compilar(MenuListener.openTabs.get(MenuListener.tabs.getSelectedIndex()));
     }
 
     public static String openFile(){

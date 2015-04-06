@@ -3,10 +3,12 @@ package frames;
 import java.awt.Insets;
 import java.awt.Window;
 import java.lang.reflect.Method;
+import javacc.CompiladorC_Sharp;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import listeners.FrameListener;
 import listeners.MenuListener;
 import menu.MainMenu;
 import panels.TabsPanel;
@@ -34,15 +36,19 @@ public class Main {
         JFrame frame = new JFrame("BORA Compiler");
         frame.setSize(900,600); 
         frame.setLocationRelativeTo(null);
-//        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBackground(BoraColors.DARK_GRAY);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         //Se va a controlar con el windowListener...
+        FrameListener fListener = new FrameListener();
+        frame.addWindowListener(fListener);
         
         // La barra de menú...
         MainMenu menu = new MainMenu();
         MenuListener mListener = new MenuListener(menu);
+        CompiladorC_Sharp.menuListener = mListener;
         menu.addEvents(mListener);
         frame.setJMenuBar(menu);
         

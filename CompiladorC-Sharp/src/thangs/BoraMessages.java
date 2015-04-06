@@ -20,4 +20,15 @@ public class BoraMessages {
     public static void warning(String msg, String title){
         JOptionPane.showMessageDialog(null, msg, title, JOptionPane.OK_OPTION);
     }
+    
+    public static void close(){
+        String[] options = {"Salir", "Cancelar"};
+        int opt = JOptionPane.showOptionDialog(null, "Se perderá todo el trabajo no guardado", "Cerrar programa",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+                options, options[1]);
+        
+        if(opt == JOptionPane.OK_OPTION){
+            System.exit(-1);
+        }
+    }
 }

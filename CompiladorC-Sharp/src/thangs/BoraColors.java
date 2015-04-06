@@ -14,6 +14,7 @@ public class BoraColors {
     public static Color DARK_GRAY = new Color(hexToRGB("292B26"));
     public static Color LIGHT_GRAY = new Color(hexToRGB("494949"));
     public static Color LIGHTER_GRAY = new Color(hexToRGB("6A6A6A"));
+    public static Color RED = new Color(hexToRGB("E03360"));
     
     // Toma un color hexadecimal y lo convierte a RGB
     // para que lo entienda swing...
