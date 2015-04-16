@@ -161,13 +161,15 @@ public class NewTabPanel extends JSplitPane{
         txtSemanticErrors.setBackground(BoraColors.GRAY);
         txtSemanticErrors.setForeground(BoraColors.WHITE);
         txtSemanticErrors.setEditable(false);
+        txtSemanticErrors.setText("");
+       
         
-        txtSemanticErrors.setText("Esta zona aún no funciona.\n"
-                + "\nBobadilla Contreras Miguel Fernando"
-                + "\nOrdoñez Ruiz Edgar"
-                + "\nArenas Vázquez Alfredo"
-                + "\nPérez Rodríguez José Rubén");
-        
+//        txtSemanticErrors.setText("Esta zona aún no funciona.\n"
+//                + "\nBobadilla Contreras Miguel Fernando"
+//                + "\nOrdoñez Ruiz Edgar"
+//                + "\nArenas Vázquez Alfredo"
+//                + "\nPérez Rodríguez José Rubén");
+//        
         semanticErrorsLabel = new JLabel("\t\t\tSemantic errors");
         semanticErrorsLabel.setFont(BoraFonts.MENLOOUT);
         semanticErrorsLabel.setBackground(BoraColors.LIGHT_GRAY);
@@ -256,6 +258,11 @@ public class NewTabPanel extends JSplitPane{
     public JTextArea getTxtTokens() {
         return txtTokens;
     }
+
+    public JTextArea getTxtSemanticErrors() {
+        return txtSemanticErrors;
+    }
+    
     
     
 }

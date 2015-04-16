@@ -4,34 +4,36 @@ options{
 PARSER_BEGIN(CompiladorC_Sharp)
 import java.util.ArrayList;
 	public class CompiladorC_Sharp{
-		static ArrayList<String> lista = new ArrayList();
-		static ArrayList<String> errores = new ArrayList();
-		private String error;
+		static ArrayList<String> lexico = new ArrayList();
+		static ArrayList<String> semantico = new ArrayList();
+		static ArrayList<String> sintactico = new ArrayList();
+		static String errorSintactico, errorSemantico;
 
 		public static void main(String[] args) throws ParseException {
 
 			CompiladorC_Sharp csharp= new CompiladorC_Sharp(System.in);
 			try{
 				csharp.analizadorLexico();
-				csharp.setError("");
+				errorSintactico = "No se ha presentado ningún error.";
+				sintactico.add(errorSintactico);
 			} catch(ParseException e){
 				Token ultimo = csharp.getToken(0);
-				csharp.setError("Error: En el token: " + ultimo.image + ". \t En la linea: " + ultimo.beginLine + " y columna: " + ultimo.beginColumn);
-				System.out.println(csharp.getError());
-
+				errorSintactico += "Error: En el token: " + ultimo.image + ". \t En la linea: " + ultimo.beginLine + " y columna: " + ultimo.beginColumn + "\n";
+				sintactico.add(errorSintactico);
+		
 			}
 		}
 
-		public ArrayList<String> getLista(){
-			return lista;
+		public ArrayList<String> getLexico(){
+			return lexico;
 		}
 
-		public String getError(){
-			return error;
+		public ArrayList<String> getSintatico(){
+			return sintactico;
 		}
 
-		public void setError(String error){
-			this.error = error;
+		public ArrayList<String> getSemantico(){
+			return semantico;
 		}
 	}
 PARSER_END(CompiladorC_Sharp)
@@ -44,92 +46,70 @@ PARSER_END(CompiladorC_Sharp)
 //Tokens palabras de acceso/reservadas
 TOKEN : {
 	<Namespace : "namespace"> {										//1
-		System.out.println("Palabra reservada -> " + image);
-		lista.add("Palabra reservada -> " + image);
+		lexico.add("Palabra reservada -> " + image);
 	}
 	|<Using : "using"> {											//2
-		System.out.println("Importacion de libreria -> " + image);
-		lista.add("Importacion de libreria -> " + image);
+		lexico.add("Importacion de libreria -> " + image);
 	}
 	|<Clase : "class"> {											//3
-		System.out.println("Declaracion de clase -> " + image);
-		lista.add("Declaracion de clase -> " + image);
+		lexico.add("Declaracion de clase -> " + image);
 	}
 	|<Privado : "private"> {										//4
-		System.out.println("Acceso Privado -> " + image);
-		lista.add("Acceso Privado -> " + image);
+		lexico.add("Acceso Privado -> " + image);
 	}
 	|<Publico : "public"> {											//5
-		System.out.println("Acceso Publico -> " + image);
-		lista.add("Acceso Publico -> " + image);
+		lexico.add("Acceso Publico -> " + image);
 	}
 	|<Protegido : "protected"> {									//6
-		System.out.println("Acceso Protegido -> " + image);
-		lista.add("Acceso Protegido -> " + image);
+		lexico.add("Acceso Protegido -> " + image);
 	}
 	|<Funcion : "funcion"> {										//7
-		System.out.println("Palabra reservada -> " + image);
-		lista.add("Palabra reservada -> " + image);
+		lexico.add("Palabra reservada -> " + image);
 	}
 	|<Main : "Main"> {												//8
-		System.out.println("Nombre funcion principal -> " + image);
-		lista.add("Nombre funcion principal -> " + image);
+		lexico.add("Nombre funcion principal -> " + image);
 	}
 	|<Retorno : "return"> {											//9
-		System.out.println("Palabra reservada -> " + image);
-		lista.add("Pablabra reservada -> " + image);
+		lexico.add("Pablabra reservada -> " + image);
 	}
 	|<Goto : "goto"> {												//10
-		System.out.println("Palabra reservada -> " + image);
-		lista.add("Pablabra reservada -> " + image);
+		lexico.add("Pablabra reservada -> " + image);
 	}
 	|<If : "if"> {													//11
-		System.out.println("Condicional -> " + image);
-		lista.add("Condicional -> " + image);
+		lexico.add("Condicional -> " + image);
 	}
 	|<Else : "else"> {												//12
-		System.out.println("Condicional -> " + image);
-		lista.add("Condicional -> " + image);
+		lexico.add("Condicional -> " + image);
 	}
 	|<For : "for"> {												//13
-		System.out.println("Ciclo -> " + image);
-		lista.add("Ciclo -> " + image);
+		lexico.add("Ciclo -> " + image);
 	}
 	|<Do : "do"> {													//14
-		System.out.println("Ciclo -> " + image);
-		lista.add("Ciclo -> " + image);
+		lexico.add("Ciclo -> " + image);
 	}
 	|<While : "while"> {											//15
-		System.out.println("Ciclo -> " + image);
-		lista.add("Ciclo -> " + image);
+		lexico.add("Ciclo -> " + image);
 	}
 	|<Switch : "switch"> {											//16
-		System.out.println("Condicional -> " + image);
-		lista.add("Condicional -> " + image);
+		lexico.add("Condicional -> " + image);
 	}
 	|<Case : "case"> {												//17
-		System.out.println("Palabra reservada -> " + image);
-		lista.add("Palabra reservada -> " + image);
+		lexico.add("Palabra reservada -> " + image);
 	}
 	|<Break : "break"> {											//18
-		System.out.println("Palabra reservada -> " + image);
-		lista.add("Palabra reservada -> " + image);
+		lexico.add("Palabra reservada -> " + image);
 	}
 	|<Default : "default"> {										//19
-		System.out.println("Palabra reservada -> " + image);
-		lista.add("Palabra reservada -> " + image);
+		lexico.add("Palabra reservada -> " + image);
 	}
 	|<Continue : "continue"> {										//20
-		System.out.println("Palabra reservada -> " + image);
-		lista.add("Palabra reservada -> " + image);
+		lexico.add("Palabra reservada -> " + image);
 	}
 	|<Void : "void"> {												//21
-		System.out.println("Palabra reservada -> " + image);
-		lista.add("Palabra reservada -> " + image);
+		lexico.add("Palabra reservada -> " + image);
 	}
 	|<Static : "static"> {											//22
-		System.out.println("Palabra reservada -> " + image);
-		lista.add("Palabra reservada -> " + image);
+		lexico.add("Palabra reservada -> " + image);
 	}
 	
 }
@@ -137,57 +117,45 @@ TOKEN : {
 //Palabras reservadas para datos
 TOKEN : {
 	<Integer: "int"> {												//23
-		System.out.println("Tipo de variable -> " + image + "(Entero)");
-		lista.add("Tipo de variable -> " + image + "(Entero)");
+		lexico.add("Tipo de variable -> " + image + "(Entero)");
 	}
 	|<Float: "float"> {												//24
-		System.out.println("Tipo de variable -> " + image + "(Flotante)");
-		lista.add("Tipo de variable -> " + image + "(Flotante)");
+		lexico.add("Tipo de variable -> " + image + "(Flotante)");
 	}
 	|<String: "string"> {											//25
-		System.out.println("Tipo de variable -> " + image + "(Cadena)");
-		lista.add("Tipo de variable -> " + image + "(Cadena)");
+		lexico.add("Tipo de variable -> " + image + "(Cadena)");
 	}
 	|<Char: "char"> {												//26
-		System.out.println("Tipo de variable -> " + image + "(Caracter)");
-		lista.add("Tipo de variable -> " + image + "(Caracter)");
+		lexico.add("Tipo de variable -> " + image + "(Caracter)");
 	}
 	|<Booleano: "bool"> {											//27
-		System.out.println("Tipo de variable -> " + image + "(Caracter)");
-		lista.add("Tipo de variable -> " + image + "(Caracter)");
+		lexico.add("Tipo de variable -> " + image + "(Caracter)");
 	}
 
 }
 
 //Tipo de datos
 TOKEN : {
-	<Entero : (["0"-"9"])+> {										//28
-		System.out.println("Tipo de dato entero -> " + image);
-		lista.add("Tipo de dato entero -> " + image);
+	<Entero : ("-")?(["0"-"9"])+> {										//28
+		lexico.add("Tipo de dato entero -> " + image);
 	}
-	|<Cadena : (["\""](["a"-"z","A"-"Z","0"-"9"," ","!"-"?"])*["\""])> {	//29
-		System.out.println("Tipo de dato String -> " + image);
-		lista.add("Tipo de dato String -> " + image);
+	|<Cadena : (["\""](["a"-"z","A"-"Z","0"-"9"," ","!"-"?"])*["\""])> {//29
+		lexico.add("Tipo de dato String -> " + image);
 	}
 	|<Caracter : (["'"]["a"-"z","A"-"Z","0"-"9"," "]["'"])> {		//30
-		System.out.println("Tipo de dato caracter -> " + image);
-		lista.add("Tipo de dato caracter -> " + image);
+		lexico.add("Tipo de dato caracter -> " + image);
 	}
-	|<Flotante : ((["0"-"9"])+["."](["0"-"9"])+)+> {				//31
-		System.out.println("Tipo de dato flotante -> " + image);
-		lista.add("Tipo de dato flotante -> " + image);
+	|<Flotante : ("-")?((["0"-"9"])+["."](["0"-"9"])+)+> {				//31
+		lexico.add("Tipo de dato flotante -> " + image);
 	}
 	|<True : "true"> {												//32
-		System.out.println("Tipo de dato Booleano -> " + image);
-		lista.add("Tipo de dato Booleano -> " + image);
+		lexico.add("Tipo de dato Booleano -> " + image);
 	}
 	|<False : "false"> {											//33
-		System.out.println("Tipo de dato Booleano " + image);
-		lista.add("Tipo de dato Booleano -> " + image);
+		lexico.add("Tipo de dato Booleano -> " + image);
 	}
 	|<Nulo : "null"> {												//34
-		System.out.println("Tipo de dato nulo -> " + image);
-		lista.add("Tipo de dato nulo -> " + image);
+		lexico.add("Tipo de dato nulo -> " + image);
 	}
 }
 
@@ -195,24 +163,19 @@ TOKEN : {
 
 TOKEN : {
 	<Console : "Console"> {											//35
-		System.out.println("Refencia a clase -> " + image);
-		lista.add("Refencia a clase -> " + image);
+		lexico.add("Refencia a clase -> " + image);
 	}
 	|<WriteLine : "WriteLine"> {									//36
-		System.out.println("Metodo de escritura -> " + image);
-		lista.add("Metodo de escritura -> " + image);
+		lexico.add("Metodo de escritura -> " + image);
 	}
 	|<Write : "Write"> {											//37
-		System.out.println("Metodo de escritura -> " + image);
-		lista.add("Metodo de escritura -> " + image);
+		lexico.add("Metodo de escritura -> " + image);
 	}
 	|<ReadLine : "ReadLine"> {										//38
-		System.out.println("Metodo de lectura -> " + image);
-		lista.add("Metodo de lectura -> " + image);
+		lexico.add("Metodo de lectura -> " + image);
 	}
 	|<ReadKey : "ReadKey"> {										//39
-		System.out.println("Metodo de lectura -> " + image);
-		lista.add("Metodo de lectura -> " + image);
+		lexico.add("Metodo de lectura -> " + image);
 	}
 }
 
@@ -220,168 +183,133 @@ TOKEN : {
 
 TOKEN : {
 	<LlaveIzquierda : "{"> {										//40
-		System.out.println("Llave Izquierda -> " + image);
-		lista.add("Llave Izquierda -> " + image);
+		lexico.add("Llave Izquierda -> " + image);
 	}
 	|<LlaveDerecha : "}"> {											//41
-		System.out.println("Llave Derecha -> " + image);
-		lista.add("Llave Derecha -> " + image);
+		lexico.add("Llave Derecha -> " + image);
 	}
 	|<ParentesisDerecho : ")"> {									//42
-		System.out.println("Parentesis -> " + image);
-		lista.add("Parentesis -> " + image);
+		lexico.add("Parentesis -> " + image);
 	}
 	|<ParentesisIzquierdo : "(" > {									//43
-		System.out.println("Parentesis -> " + image);
-		lista.add("Parentesis -> " + image);
+		lexico.add("Parentesis -> " + image);
 	}
 	|<CierreSentencia : ";"> {										//44
-		System.out.println("Cierre de sentencia -> " + image);
-		lista.add("Cierre de sentencia -> " + image);
+		lexico.add("Cierre de sentencia -> " + image);
 	}
 	|<Punto : "."> {												//45
-		System.out.println("Punto -> " + image);
-		lista.add("Punto -> " + image);
+		lexico.add("Punto -> " + image);
 	}
 	|<DosPuntos : ":"> {											//46
-		System.out.println("Dos puntos -> " + image);
-		lista.add("Dos puntos -> " + image);
+		lexico.add("Dos puntos -> " + image);
 	}
 	|<Coma : ","> {													//47
-		System.out.println("Coma -> " + image);
-		lista.add("Coma -> " + image);
+		lexico.add("Coma -> " + image);
 	}
 	|<CorcheteIzquierdo : "["> {									//48
-		System.out.println("CorcheteIzquierdo -> " + image);
-		lista.add("CorcheteIzquierdo -> " + image);
+		lexico.add("CorcheteIzquierdo -> " + image);
 	}
 	|<CorcheteDerecho : "]"> {										//49
-		System.out.println("CorcheteDerecho -> " + image);
-		lista.add("CorcheteDerecho -> " + image);
+		lexico.add("CorcheteDerecho -> " + image);
 	}
 }
 
 //Tokens para operaciones aritmeticas
 TOKEN : {
 	<Suma : "+"> {													//50
-		System.out.println("Operador aritmetico suma -> " + image);
-		lista.add("Operador aritmetico suma -> " + image);
+		lexico.add("Operador aritmetico suma -> " + image);
 	}
 	|<Resta : "-"> {												//51
-		System.out.println("Operador aritmetico resta -> " + image);
-		lista.add("Operador aritmetico -> resta " + image);
+		lexico.add("Operador aritmetico -> resta " + image);
 	}
 	|<Multiplicacion : "*"> {										//52
-		System.out.println("Operador aritmetico multiplicacion -> " + image);
-		lista.add("Operador aritmetico multiplicacion -> " + image);
+		lexico.add("Operador aritmetico multiplicacion -> " + image);
 	}
 	|<Division : "/"> {												//53
-		System.out.println("Operador aritmetico division -> " + image);
-		lista.add("Operador aritmetico division -> " + image);
+		lexico.add("Operador aritmetico division -> " + image);
 	}
 	|<Modulo : "%"> {												//54
-		System.out.println("Operador aritmetico modulo -> " + image);
-		lista.add("Operador aritmetico modulo -> " + image);
+		lexico.add("Operador aritmetico modulo -> " + image);
 	}
 }
 
 //Toneks para asignaciones
 TOKEN : {
 	<IgualA : "="> {												//55
-		System.out.println("Asignacion -> " + image);
-		lista.add("Asignacion -> " + image);
+		lexico.add("Asignacion -> " + image);
 	}
 	|<SumaIgualA : "+="> {											//56
-		System.out.println("Asignacion -> " + image);
-		lista.add("Asignacion -> " + image);
+		lexico.add("Asignacion -> " + image);
 	}
 	|<RestaIgualA : "-="> {											//57
-		System.out.println("Asignacion -> " + image);
-		lista.add("Asignacion -> " + image);
+		lexico.add("Asignacion -> " + image);
 	}
 	|<MultiplicacionIgualA : "*="> {								//58
-		System.out.println("Asignacion -> " + image);
-		lista.add("Asignacion -> " + image);
+		lexico.add("Asignacion -> " + image);
 	}
 	|<DivisionIgualA : "/="> {										//59
-		System.out.println("Asignacion -> " + image);
-		lista.add("Asignacion -> " + image);
+		lexico.add("Asignacion -> " + image);
 	}
 	|<ModuloIgualA : "%="> {										//60
-		System.out.println("Asignacion -> " + image);
-		lista.add("Asignacion -> " + image);
+		lexico.add("Asignacion -> " + image);
 	}
 	|<Incremento : "++"> {											//61
-		System.out.println("Asignacion -> " + image);
-		lista.add("Asignacion -> " + image);
+		lexico.add("Asignacion -> " + image);
 	}
 	|<Decremento : "--"> {											//62
-		System.out.println("Asignacion -> " + image);
-		lista.add("Asignacion -> " + image);
+		lexico.add("Asignacion -> " + image);
 	}
 }
 
 //Tokens operadores relacionales
 TOKEN : {
 	<IgualQue : "=="> {												//63
-		System.out.println("Operador Relacional -> " + image);
-		lista.add("Operador Relacional -> " + image);
+		lexico.add("Operador Relacional -> " + image);
 	}
 	|<MenorQue : "<"> {												//64
-		System.out.println("Operador Relacional -> " + image);
-		lista.add("Operador Relacional -> " + image);
+		lexico.add("Operador Relacional -> " + image);
 	}
 	|<MayorQue : ">"> {												//65
-		System.out.println("Operador Relacional -> " + image);
-		lista.add("Operador Relacional -> " + image);
+		lexico.add("Operador Relacional -> " + image);
 	}
 	|<MenorIgualQue : "<="> {										//66
-		System.out.println("Operador Relacional -> " + image);
-		lista.add("Operador Relacional -> " + image);
+		lexico.add("Operador Relacional -> " + image);
 	}
 	|<MayorIgualQue : ">="> {										//67
-		System.out.println("Operador Relacional -> " + image);
-		lista.add("Operador Relacional -> " + image);
+		lexico.add("Operador Relacional -> " + image);
 	}
 	|<DiferenteQue : "!="> {										//68
-		System.out.println("Operador Relacional -> " + image);
-		lista.add("Operador Relacional -> " + image);
+		lexico.add("Operador Relacional -> " + image);
 	}
 }
 
 //Tokens operadores logicos
 TOKEN : {
 	<And : "&&"> {													//69
-		System.out.println("Operador Logico -> " + image);
-		lista.add("Operador Logico -> " + image);
+		lexico.add("Operador Logico -> " + image);
 	}
 	|<Or : "||"> {													//70
-		System.out.println("Operador Logico -> " + image);
-		lista.add("Operador Logico -> " + image);
+		lexico.add("Operador Logico -> " + image);
 	}
 }
 
 //Token para identificadores
 TOKEN : {
 	<Identificador : ["a"-"z", "A"-"Z"](["a"-"z", "A"-"Z", "0"-"9", "_"])*> {		//71
-		System.out.println("Identificador -> " + image);
-		lista.add("Identificador -> " + image);
+		lexico.add("Identificador -> " + image);
 	}
 }
 
 //Token comentarios
 TOKEN : {
 	<ComentarioLinea : "//" > {										//72
-		System.out.println("Comentario de una linea -> " + image);
-		lista.add("Comentario de una linea -> " + image);
+		lexico.add("Comentario de una linea -> " + image);
 	}
 	|<ComentarioInicio : ("/*" | "/**") > {							//73
-		System.out.println("Comentario de parrafo inicio -> " + image);
-		lista.add("Comentario de parrafo inicio -> " + image);
+		lexico.add("Comentario de parrafo inicio -> " + image);
 	}
 	|<ComentarioTermino : "*/" > {									//74
-		System.out.println("Comentario de parrafo termino -> " + image);
-		lista.add("Comentario de parrafo termino -> " + image);
+		lexico.add("Comentario de parrafo termino -> " + image);
 	}
 }
 
@@ -423,16 +351,10 @@ void sentencias() : {} {
 	|estructuraWhile()
 	|estructuraDoWhile()
 	|estructuraSwitch()
-	|declaracionSinTipo()<CierreSentencia>
 	|declaracionVariable()<CierreSentencia>
 	|<Console><Punto>(lectura() | escritura())<CierreSentencia>)*
 }
 
-void declaracionSinTipo() : {} {
-
-	<Identificador><IgualA>parametro()(operacion())*
-						
-}
 
 void escritura() : {} {
 
@@ -470,28 +392,161 @@ void declaracionVariable() : {} {
 	|declaracionVariableCadena()
 	|declaracionVariableCaracter()
 	|declaracionVariableFlotante()
-	|<Identificador>asignacionVariablesFor()
 	
 }
 
-void declaracionVariableBooleana() : {} {
-	<Booleano><Identificador>(<IgualA>(<True> | <False> | <Identificador> | <Nulo>))?
+void declaracionVariableBooleana() : {
+	int opcion = 0;
+	String tokenTipo, identificador1;
+	Token  identificador2 = null;
+} {
+	(<Booleano>)?{tokenTipo = token.image;}<Identificador>{identificador1=token.image;}		
+	(<IgualA>{opcion = 1;}(<True> | <False> | <Identificador>| <Nulo>){identificador2 = token;})?
+	{
+
+		if (opcion == 0 || (identificador2.kind >= 32 && identificador2.kind <= 34 )) {
+			if (!tokenTipo.equals(";") && !identificador1.equals("")) {
+				errorSemantico = AnalizadorSemantico.declaracionSencilla(tokenTipo, identificador1);
+				semantico.add(errorSemantico);
+				System.out.println(errorSemantico);
+			
+			}
+			
+		}else if (!tokenTipo.equals(";")) {
+				errorSemantico = AnalizadorSemantico.declaracionCompleta(tokenTipo, identificador1, identificador2.image);
+				semantico.add(errorSemantico);
+				System.out.println(errorSemantico);	
+		}else{
+			errorSemantico = AnalizadorSemantico.declaracionSinTipo(identificador1, identificador2.image);
+			semantico.add(errorSemantico);
+			System.out.println(errorSemantico);
+		}
+		
+	}
+
+
 }
 
-void declaracionVariableEntera() : {} {
-	<Integer><Identificador>(<IgualA>(<Identificador> | <Entero> | operacion()))?
+void declaracionVariableEntera() : {
+	int opcion = 0;
+	String tokenTipo, identificador1;
+	Token identificador2 = null;
+} {
+	(<Integer>)?{tokenTipo = token.image;}<Identificador>{identificador1=token.image;}
+	(<IgualA>{opcion = 1;}(<Identificador> | <Entero> ){identificador2 = token;} )?
+	{
+		if (opcion == 0 || identificador2.kind == 28) {
+			if (!tokenTipo.equals(";") && !identificador1.equals("")) {
+				errorSemantico = AnalizadorSemantico.declaracionSencilla(tokenTipo, identificador1);
+				semantico.add(errorSemantico);
+				System.out.println(errorSemantico);
+				
+			}
+			
+		}else if (!tokenTipo.equals(";")) {
+				errorSemantico = AnalizadorSemantico.declaracionCompleta(tokenTipo, identificador1, identificador2.image);
+				semantico.add(errorSemantico);
+				System.out.println(errorSemantico);	
+			}else{
+				errorSemantico = AnalizadorSemantico.declaracionSinTipo(identificador1, identificador2.image);
+				semantico.add(errorSemantico);
+				System.out.println(errorSemantico);
+			}
+		
+	}
+
+	
 }
 
-void declaracionVariableFlotante() : {} {
-	<Float><Identificador>(<IgualA>(<Identificador> | <Flotante> | operacion()))?
+void declaracionVariableFlotante() : {
+	int opcion = 0;
+	String tokenTipo, identificador1;
+	Token identificador2 = null;
+} {
+	(<Float>)?{tokenTipo = token.image;}<Identificador>{identificador1=token.image;}
+	(<IgualA>{opcion = 1;}(<Identificador> | <Flotante> | <Entero>){identificador2 = token;})?
+	{
+		if (opcion == 0 || identificador2.kind == 28 || identificador2.kind == 31) {
+			if (!tokenTipo.equals(";") && !identificador1.equals("")) {
+				errorSemantico = AnalizadorSemantico.declaracionSencilla(tokenTipo, identificador1);
+				semantico.add(errorSemantico);
+				System.out.println(errorSemantico);
+				
+			}
+			
+		}else if (!tokenTipo.equals(";")) {
+				errorSemantico = AnalizadorSemantico.declaracionCompleta(tokenTipo, identificador1, identificador2.image);
+				semantico.add(errorSemantico);
+				System.out.println(errorSemantico);	
+			}else{
+				errorSemantico = AnalizadorSemantico.declaracionSinTipo(identificador1, identificador2.image);
+				semantico.add(errorSemantico);
+				System.out.println(errorSemantico);
+			}
+		
+	}
+	
 }
 
-void declaracionVariableCadena() : {} {
-	<String><Identificador>(<IgualA>(<Identificador> | <Cadena> | lectura()))?
+void declaracionVariableCadena() : {
+	int opcion = 0;
+	String tokenTipo, identificador1;
+	Token identificador2 = null;
+} {
+	(<String>)?{tokenTipo = token.image;}<Identificador>{identificador1=token.image;}
+	(<IgualA>{opcion = 1;}(<Identificador> | <Cadena>){identificador2 = token;} | lectura())?
+
+	{
+		if (opcion == 0 || identificador2.kind == 29) {
+			if (!tokenTipo.equals(";") && !identificador1.equals("")) {
+				errorSemantico = AnalizadorSemantico.declaracionSencilla(tokenTipo, identificador1);
+				semantico.add(errorSemantico);
+				System.out.println(errorSemantico);
+				
+			}
+			
+		}else if (!tokenTipo.equals(";")) {
+				errorSemantico = AnalizadorSemantico.declaracionCompleta(tokenTipo, identificador1, identificador2.image);
+				semantico.add(errorSemantico);
+				System.out.println(errorSemantico);	
+			}else{
+				errorSemantico = AnalizadorSemantico.declaracionSinTipo(identificador1, identificador2.image);
+				semantico.add(errorSemantico);
+				System.out.println(errorSemantico);
+			}
+		
+	}
+	
 }
 
-void declaracionVariableCaracter() : {} {
-	<Char><Identificador>(<IgualA>(<Identificador> | <Caracter>))?
+void declaracionVariableCaracter() : {
+	int opcion = 0;
+	String tokenTipo, identificador1;
+	Token identificador2 = null;
+} {
+	(<Char>)?{tokenTipo = token.image;}<Identificador>{identificador1=token.image;}
+	(<IgualA>{opcion = 1;}(<Identificador> | <Caracter>){identificador2 = token;})?
+	{
+		if (opcion == 0 || identificador2.kind == 30) {
+			if (!tokenTipo.equals(";") && !identificador1.equals("")) {
+				errorSemantico = AnalizadorSemantico.declaracionSencilla(tokenTipo, identificador1);
+				semantico.add(errorSemantico);
+				System.out.println(errorSemantico);
+				
+			}
+			
+		}else if (!tokenTipo.equals(";")) {
+				errorSemantico = AnalizadorSemantico.declaracionCompleta(tokenTipo, identificador1, identificador2.image);
+				semantico.add(errorSemantico);
+				System.out.println(errorSemantico);	
+			}else{
+				errorSemantico = AnalizadorSemantico.declaracionSinTipo(identificador1, identificador2.image);
+				semantico.add(errorSemantico);
+				System.out.println(errorSemantico);
+			}
+		
+	}
+
 }
 
 void operacion() : {} {

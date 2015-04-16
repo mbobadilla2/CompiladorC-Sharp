@@ -1,0 +1,18 @@
+using System;
+
+namespace MiRey{
+	
+	class Program{
+
+		static void Main(string[] args){
+			bool pija;
+			string identificador;
+			int entero;
+			float flotante;
+			flotante = entero;
+			identificador = pija;
+			char caracter;
+			
+		}
+	}
+}
