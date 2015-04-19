@@ -25,28 +25,28 @@ class AnalizadorSemantico{
      * null: 34
     */   
     
-    static String declaracionSencilla(String tipoDato, String identificador){
+    static String declaracionSencilla(String tipoDato, String identificador, int linea){
         if (!tabla.containsKey(identificador)) {
             insertarSimbolo(identificador, tipoDato);
             return "";
         }else
-            return "ERROR: El identificador: " + identificador +
+            return "ERROR en la linea " + linea+": El identificador: " + identificador +
                     " ya ha sido declarado, con tipo de dato: " +
                     tabla.get(identificador);
     } 
     
-    static String declaracionCompleta(String tipoDato, String identificador1, String identificador2){
+    static String declaracionCompleta(String tipoDato, String identificador1, String identificador2, int linea){
         if (tabla.containsKey(identificador2)) {
             if (tabla.get(identificador2).equals(tipoDato) || (tabla.get(identificador2).equals("int") && tipoDato.equals("float"))) {
-                return declaracionSencilla(tipoDato, identificador1);
+                return declaracionSencilla(tipoDato, identificador1, linea);
             }
-            return "ERROR! El identificador: " + identificador2 + " (" + tabla.get(identificador2)+ ") es incompatible con el identificador: " +
+            return "ERROR en la linea " + linea+"! El identificador: " + identificador2 + " (" + tabla.get(identificador2)+ ") es incompatible con el identificador: " +
                     identificador1 + " (" + tipoDato+ ")";
         }else
-            return "ERROR! El identificador: " + identificador2 + " no ha sido declarado.";
+            return "ERROR en la linea " + linea+"! El identificador: " + identificador2 + " no ha sido declarado.";
     }
     
-    static String declaracionSinTipo(String identificador1, String identificador2 ){
+    static String declaracionSinTipo(String identificador1, String identificador2, int linea ){
         if (tabla.containsKey(identificador1)) {
             if (tabla.containsKey(identificador2)) {
                 String tipo1 = tabla.get(identificador1);  
@@ -54,12 +54,12 @@ class AnalizadorSemantico{
                 if (tipo1.equals(tipo2) || (tipo2.equals("int") && tipo1.equals("float"))) {
                     return "";
                 }else
-                    return "ERROR! El identificador: " + identificador2 +"(" +tipo2+") es incompatible con el identificador: " + 
+                    return "ERROR en la linea " + linea+"! El identificador: " + identificador2 +"(" +tipo2+") es incompatible con el identificador: " + 
                             identificador1 + "(" + tipo1 +")";
             }else            
-                return "ERROR! El identificador: " + identificador2 + " no ha sido declarado";
+                return "ERROR en la linea " + linea+"! El identificador: " + identificador2 + " no ha sido declarado";
         }else
-            return "ERROR! El identificador: " + identificador1 + " no ha sido declarado";
+            return "ERROR en la linea " + linea+"! El identificador: " + identificador1 + " no ha sido declarado";
     }
     
     

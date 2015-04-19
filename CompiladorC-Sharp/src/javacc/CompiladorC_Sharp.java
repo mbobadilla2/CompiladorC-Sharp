@@ -393,18 +393,18 @@ public class CompiladorC_Sharp implements CompiladorC_SharpConstants {
     }
                 if (opcion == 0 || (identificador2.kind >= 32 && identificador2.kind <= 34 )) {
                         if (!tokenTipo.equals(";") && !identificador1.equals("")) {
-                                errorSemantico = AnalizadorSemantico.declaracionSencilla(tokenTipo, identificador1);
+                                errorSemantico = AnalizadorSemantico.declaracionSencilla(tokenTipo, identificador1, token.beginLine);
                                 semantico.add(errorSemantico);
                                 System.out.println(errorSemantico);
 
                         }
 
                 }else if (!tokenTipo.equals(";")) {
-                                errorSemantico = AnalizadorSemantico.declaracionCompleta(tokenTipo, identificador1, identificador2.image);
+                                errorSemantico = AnalizadorSemantico.declaracionCompleta(tokenTipo, identificador1, identificador2.image, token.beginLine);
                                 semantico.add(errorSemantico);
                                 System.out.println(errorSemantico);
                 }else{
-                        errorSemantico = AnalizadorSemantico.declaracionSinTipo(identificador1, identificador2.image);
+                        errorSemantico = AnalizadorSemantico.declaracionSinTipo(identificador1, identificador2.image, token.beginLine);
                         semantico.add(errorSemantico);
                         System.out.println(errorSemantico);
                 }
@@ -449,18 +449,18 @@ public class CompiladorC_Sharp implements CompiladorC_SharpConstants {
     }
                 if (opcion == 0 || identificador2.kind == 28) {
                         if (!tokenTipo.equals(";") && !identificador1.equals("")) {
-                                errorSemantico = AnalizadorSemantico.declaracionSencilla(tokenTipo, identificador1);
+                                errorSemantico = AnalizadorSemantico.declaracionSencilla(tokenTipo, identificador1, token.beginLine);
                                 semantico.add(errorSemantico);
                                 System.out.println(errorSemantico);
 
                         }
 
                 }else if (!tokenTipo.equals(";")) {
-                                errorSemantico = AnalizadorSemantico.declaracionCompleta(tokenTipo, identificador1, identificador2.image);
+                                errorSemantico = AnalizadorSemantico.declaracionCompleta(tokenTipo, identificador1, identificador2.image, token.beginLine);
                                 semantico.add(errorSemantico);
                                 System.out.println(errorSemantico);
                         }else{
-                                errorSemantico = AnalizadorSemantico.declaracionSinTipo(identificador1, identificador2.image);
+                                errorSemantico = AnalizadorSemantico.declaracionSinTipo(identificador1, identificador2.image, identificador2.beginLine);
                                 semantico.add(errorSemantico);
                                 System.out.println(errorSemantico);
                         }
@@ -508,18 +508,18 @@ public class CompiladorC_Sharp implements CompiladorC_SharpConstants {
     }
                 if (opcion == 0 || identificador2.kind == 28 || identificador2.kind == 31) {
                         if (!tokenTipo.equals(";") && !identificador1.equals("")) {
-                                errorSemantico = AnalizadorSemantico.declaracionSencilla(tokenTipo, identificador1);
+                                errorSemantico = AnalizadorSemantico.declaracionSencilla(tokenTipo, identificador1, token.beginLine);
                                 semantico.add(errorSemantico);
                                 System.out.println(errorSemantico);
 
                         }
 
                 }else if (!tokenTipo.equals(";")) {
-                                errorSemantico = AnalizadorSemantico.declaracionCompleta(tokenTipo, identificador1, identificador2.image);
+                                errorSemantico = AnalizadorSemantico.declaracionCompleta(tokenTipo, identificador1, identificador2.image, identificador2.beginLine);
                                 semantico.add(errorSemantico);
                                 System.out.println(errorSemantico);
                         }else{
-                                errorSemantico = AnalizadorSemantico.declaracionSinTipo(identificador1, identificador2.image);
+                                errorSemantico = AnalizadorSemantico.declaracionSinTipo(identificador1, identificador2.image, identificador2.beginLine);
                                 semantico.add(errorSemantico);
                                 System.out.println(errorSemantico);
                         }
@@ -578,18 +578,18 @@ public class CompiladorC_Sharp implements CompiladorC_SharpConstants {
     }
                 if (opcion == 0 || identificador2.kind == 29) {
                         if (!tokenTipo.equals(";") && !identificador1.equals("")) {
-                                errorSemantico = AnalizadorSemantico.declaracionSencilla(tokenTipo, identificador1);
+                                errorSemantico = AnalizadorSemantico.declaracionSencilla(tokenTipo, identificador1, token.beginLine);
                                 semantico.add(errorSemantico);
                                 System.out.println(errorSemantico);
 
                         }
 
                 }else if (!tokenTipo.equals(";")) {
-                                errorSemantico = AnalizadorSemantico.declaracionCompleta(tokenTipo, identificador1, identificador2.image);
+                                errorSemantico = AnalizadorSemantico.declaracionCompleta(tokenTipo, identificador1, identificador2.image, identificador2.beginLine);
                                 semantico.add(errorSemantico);
                                 System.out.println(errorSemantico);
                         }else{
-                                errorSemantico = AnalizadorSemantico.declaracionSinTipo(identificador1, identificador2.image);
+                                errorSemantico = AnalizadorSemantico.declaracionSinTipo(identificador1, identificador2.image, identificador2.beginLine);
                                 semantico.add(errorSemantico);
                                 System.out.println(errorSemantico);
                         }
@@ -634,18 +634,18 @@ public class CompiladorC_Sharp implements CompiladorC_SharpConstants {
     }
                 if (opcion == 0 || identificador2.kind == 30) {
                         if (!tokenTipo.equals(";") && !identificador1.equals("")) {
-                                errorSemantico = AnalizadorSemantico.declaracionSencilla(tokenTipo, identificador1);
+                                errorSemantico = AnalizadorSemantico.declaracionSencilla(tokenTipo, identificador1, token.beginLine);
                                 semantico.add(errorSemantico);
                                 System.out.println(errorSemantico);
 
                         }
 
                 }else if (!tokenTipo.equals(";")) {
-                                errorSemantico = AnalizadorSemantico.declaracionCompleta(tokenTipo, identificador1, identificador2.image);
+                                errorSemantico = AnalizadorSemantico.declaracionCompleta(tokenTipo, identificador1, identificador2.image, identificador2.beginLine);
                                 semantico.add(errorSemantico);
                                 System.out.println(errorSemantico);
                         }else{
-                                errorSemantico = AnalizadorSemantico.declaracionSinTipo(identificador1, identificador2.image);
+                                errorSemantico = AnalizadorSemantico.declaracionSinTipo(identificador1, identificador2.image, identificador2.beginLine);
                                 semantico.add(errorSemantico);
                                 System.out.println(errorSemantico);
                         }

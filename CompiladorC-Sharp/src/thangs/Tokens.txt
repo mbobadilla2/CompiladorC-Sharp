@@ -17,30 +17,28 @@ CorcheteDerecho -> ]
 Identificador -> args
 Parentesis -> )
 Llave Izquierda -> {
-Refencia a clase -> Console
-Punto -> .
-Metodo de escritura -> WriteLine
-Parentesis -> (
-Tipo de dato String -> "Hola mama"
-Parentesis -> )
+Tipo de variable -> bool(Caracter)
+Identificador -> pija
+Cierre de sentencia -> ;
+Tipo de variable -> string(Cadena)
+Identificador -> identificador
 Cierre de sentencia -> ;
 Tipo de variable -> int(Entero)
-Identificador -> numero
-Asignacion -> =
-Tipo de dato entero -> 4
+Identificador -> entero
 Cierre de sentencia -> ;
-Tipo de variable -> bool(Caracter)
-Identificador -> cierto
+Tipo de variable -> float(Flotante)
+Identificador -> flotante
 Cierre de sentencia -> ;
-Tipo de variable -> string(Cadena)
-Identificador -> cadena
+Identificador -> flotante
 Asignacion -> =
-Tipo de dato String -> "Hola mama"
+Identificador -> entero
 Cierre de sentencia -> ;
-Tipo de variable -> string(Cadena)
-Identificador -> otraCadena
+Identificador -> identificador
 Asignacion -> =
-Identificador -> cadenita
+Identificador -> pija
+Cierre de sentencia -> ;
+Tipo de variable -> char(Caracter)
+Identificador -> caracter
 Cierre de sentencia -> ;
 Llave Derecha -> }
 Llave Derecha -> }

@@ -5,17 +5,14 @@ namespace MiRey{
     class Program{
 
         static void Main(string[] args){
-
-            Console.WriteLine("Hola mama");
-        
-            int numero = 4;
-            bool cierto;
-            string cadena = "Hola mama";
-
-
-            string otraCadena = cadenita;
+            bool pija;
+            string identificador;
+            int entero;
+            float flotante;
+            flotante = entero;
+            identificador = pija;
+            char caracter;
+            
         }
-   
     }
-
 }
