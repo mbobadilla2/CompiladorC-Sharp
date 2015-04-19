@@ -21,7 +21,10 @@ public class CompiladorC_Sharp implements CompiladorC_SharpConstants {
                 public static void compilar(NewTabPanel ntp) throws ParseException, FileNotFoundException {
 
                         lexico.removeAll(lexico);
-                        semantico.clear();
+                        sintactico.removeAll(sintactico);
+                        semantico.removeAll(semantico);
+                        
+                        
                         AnalizadorSemantico.getTabla().clear();
                         CompiladorC_Sharp csharp= new CompiladorC_Sharp(new FileInputStream(BoraFiles.TEMP_FILE));
                         try{
@@ -38,19 +41,25 @@ public class CompiladorC_Sharp implements CompiladorC_SharpConstants {
                                 ntp.getTxtTokens().setText("");
                                 ntp.getTxtTokens().setText(tokens);
                                 
-                                //No hay error... :v
-                                ntp.getTxtSyntacticErrors().setText("");
-                                ntp.getTxtSyntacticErrors().setText(semError);
-                                
                                 String semantic = "";
                                 for (String semanticErrors : semantico) {
                                     if (!semanticErrors.equals("")) {
                                         semantic += semanticErrors + "\n";
                                     }
-                                    
+ 
                                 }
+                                
+                                if(semantic.equals("")){
+                                    semantic = "No se encontraron errores semánticos";
+                                }
+                                
                                 ntp.getTxtSemanticErrors().setText("");
                                 ntp.getTxtSemanticErrors().setText(semantic);
+                                
+                                //No hay error... :v
+                                ntp.getTxtSyntacticErrors().setText("");
+                                ntp.getTxtSyntacticErrors().setText(semError);
+                                
                                 
                                 
                                 // Se deja de resaltar la palabra de error...
@@ -74,9 +83,13 @@ public class CompiladorC_Sharp implements CompiladorC_SharpConstants {
                                 for (String sintax : sintactico) {
                                     errorSintactico += sintax + "\n";
                                 }
-                                //No hay error... :v
+                                
                                 ntp.getTxtSyntacticErrors().setText("");
                                 ntp.getTxtSyntacticErrors().setText(errorSintactico);
+                                
+                                
+                                ntp.getTxtSemanticErrors().setText("");
+                                ntp.getTxtSemanticErrors().setText("No se encontraron errores semánticos");
                                 
                                 menuListener.highlightSemanticErrors(ultimo.image);
                                 System.out.println("ERROR: " + ultimo.image);

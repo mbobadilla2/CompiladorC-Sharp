@@ -81,7 +81,7 @@ public class NewTabPanel extends JSplitPane{
         topRight.setLayout(new BorderLayout());
         
         txtTokens = new JTextArea();
-        txtTokens.setColumns(20);
+        txtTokens.setColumns(25);
         txtTokens.setBorder(BorderFactory.createLineBorder(BoraColors.GRAY, 10));
         txtTokens.setFont(BoraFonts.MENLO);
         txtTokens.setCaretColor(BoraColors.WHITE);
@@ -154,7 +154,7 @@ public class NewTabPanel extends JSplitPane{
         botRight.setLayout(new BorderLayout());
         
         txtSemanticErrors = new JTextArea();
-        txtSemanticErrors.setColumns(20);
+        txtSemanticErrors.setColumns(45);
         txtSemanticErrors.setBorder(BorderFactory.createLineBorder(BoraColors.GRAY, 10));
         txtSemanticErrors.setFont(BoraFonts.MENLO);
         txtSemanticErrors.setCaretColor(BoraColors.WHITE);
